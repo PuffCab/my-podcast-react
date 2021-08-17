@@ -4,6 +4,7 @@ import {
   } from 'react-router-dom';
 
 const ListItem = ({curatedList}) => {
+    // console.log(`curatedList`, curatedList)
     return (
        <Link to={`/curated/${curatedList.id}`} style={{textDecoration: 'none', color: 'black'}}>
             <div  >
