@@ -30,15 +30,15 @@ const ListDetails = () => {
       );
 
       const obj = await response.json()
-      console.log(obj)
+    //   console.log(obj)
       setCurListDetails(obj)
-      console.log(`response`, response)
+    //   console.log(`response`, response)
       
     };
     getCuratedList();
   }, []);
  
-  console.log(`curListDetails`, curListDetails)
+//   console.log(`curListDetails`, curListDetails)
 
     return (
         

@@ -7,20 +7,21 @@
 import React from 'react'
 import List from './components/List'
 import ListDetails from './components/ListDetails';
-import Episodes from './components/Episodes'
+import Podcast from './components/Podcast'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from 'react-router-dom';
+import PodcastDetail from './components/PodcastDetail'
 
 function App() {
   return (
 
 
     <div className="App">
-    <h1>AMOS A VER</h1>
+    {/* <h1>AMOS A VER</h1> */}
       <Router>
         <nav>
           <ul>
@@ -36,7 +37,7 @@ function App() {
         
         <Switch>
            <Route exact path='/'>
-            <h1>List of Curated Lists</h1>
+            <h1>Go to Curated Lists</h1>
            </Route>
            <Route exact path='/curated'>
               <List/>
@@ -44,8 +45,11 @@ function App() {
            <Route exact path='/curated/:id'>
               <ListDetails/>
            </Route>
-           <Route exact path='/curated/:id/:id'>
-              <Episodes/>
+           <Route exact path={`/curated/:id/:id`}>
+              <Podcast/>
+           </Route>
+           <Route  exact path={`/podcaslist/:id`}>
+              <PodcastDetail/>
            </Route>
          </Switch>
 
