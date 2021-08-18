@@ -55,7 +55,7 @@ const Episodes = ({item}) => {
     console.log(item)
     return (
         <div>
-            <Typography paragraph style={{fontSize: "12px"}}>
+            <Typography paragraph style={{fontSize: "12px"} }>
                 {item.title}
                 <audio controls>
                     
