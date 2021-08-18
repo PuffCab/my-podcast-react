@@ -9,34 +9,54 @@ const ListDetails = () => {
 
     const [curListDetails, setCurListDetails] = React.useState()
     
-    let { id } = useParams()
-    let obj = useParams()
-    console.log(id)
-    console.log(`object`, obj )
+  //INICIO commented for local Fetch
+  //   let { id } = useParams()
+  //   let obj = useParams()
+  //   console.log(id)
+  //   console.log(`object`, obj )
 
-    var myHeaders = new Headers();
-    myHeaders.append("X-ListenAPI-Key", "3f0625c2f3eb4f8eae96a0293645a931");
+  //   var myHeaders = new Headers();
+  //   myHeaders.append("X-ListenAPI-Key", "3f0625c2f3eb4f8eae96a0293645a931");
 
-    var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow' 
-    };
+  //   var requestOptions = {
+  //       method: 'GET',
+  //       headers: myHeaders,
+  //       redirect: 'follow' 
+  //   };
 
-     useEffect(() => {
-    const getCuratedList = async () => {
-      const response = await fetch(
-        `https://listen-api.listennotes.com/api/v2/curated_podcasts/${id}`, requestOptions
-      );
+  //    useEffect(() => {
+  //   const getCuratedList = async () => {
+  //     const response = await fetch(
+  //       `https://listen-api.listennotes.com/api/v2/curated_podcasts/${id}`, requestOptions
+  //     );
 
-      const obj = await response.json()
-    //   console.log(obj)
-      setCurListDetails(obj)
-    //   console.log(`response`, response)
+  //     const obj = await response.json()
+  //   //   console.log(obj)
+  //     setCurListDetails(obj)
+  //   //   console.log(`response`, response)
       
-    };
-    getCuratedList();
-  }, []);
+  //   };
+  //   getCuratedList();
+  // }, []);
+  //FIN commented for local Fetch
+
+
+  useEffect(() => {
+    fetch("http://localhost:8001/obj")
+      .then(response => {
+          return response.json()
+      })
+      .then(obj => {
+        console.log(`OBJ`, obj.podcasts)
+        setCurListDetails(obj)
+      })
+    
+  }, [])
+
+
+
+
+
  
 //   console.log(`curListDetails`, curListDetails)
 
