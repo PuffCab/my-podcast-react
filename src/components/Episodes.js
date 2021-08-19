@@ -49,14 +49,19 @@ const Episodes = ({item}) => {
 
     // const {id} = useParams()
     // const item = props.item
-    
+    // var time = 1628499605000 ; 
+    // var date = new Date(time).toLocaleDateString()
+    // console.log(`date`, date)
+
+    let episodeTime = new Date(item.pub_date_ms).toLocaleDateString()
     
 
-    console.log(item)
+    // console.log(item)
     return (
         <div>
             <Typography paragraph style={{fontSize: "12px"} }>
-                {item.title}
+                {item.title}&emsp;
+                 Published: {episodeTime}
                 <audio controls>
                     
                     <source src={item.audio} type="audio/mpeg"/>

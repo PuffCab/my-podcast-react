@@ -61,6 +61,7 @@ const PodcastInfo = ({podcastDetail}) => {
         setExpanded(!expanded);
     };
 
+    let lastEpisodeTime = new Date(podcastDetail.latest_pub_date_ms).toDateString()
     return (
         // <div>
         //     <h3>{podcastDetail.title}</h3>
@@ -85,7 +86,7 @@ const PodcastInfo = ({podcastDetail}) => {
           </IconButton>
         }
         title={podcastDetail.title}
-        subheader="September 14, 2016"
+        subheader={lastEpisodeTime}
       />
       <CardMedia
         className={classes.media}
