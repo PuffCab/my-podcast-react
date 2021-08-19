@@ -9,7 +9,7 @@ const PodcastDetail = ({elements}) => {
     const [podcastDetail, setPodcastDetail] = React.useState()
     
     let { id } = useParams()
-    console.log(id)
+    // console.log(id)
 
 
     var myHeaders = new Headers();
@@ -28,7 +28,7 @@ const PodcastDetail = ({elements}) => {
       );
 
       const obj = await response.json()
-      console.log(obj)
+      // console.log(obj)
         setPodcastDetail(obj)
     //   console.log(`response`, response)
       
