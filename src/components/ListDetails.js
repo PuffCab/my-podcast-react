@@ -5,9 +5,16 @@ import {
 import PodcastList from './PodcastList';
 
 
+
+
+
+
 const ListDetails = () => {
 
     const [curListDetails, setCurListDetails] = React.useState()
+
+    
+    
     
   //INICIO commented for local Fetch
   //   let { id } = useParams()
@@ -47,11 +54,12 @@ const ListDetails = () => {
           return response.json()
       })
       .then(obj => {
-        console.log(`OBJ`, obj.podcasts)
+        console.log(`OBJ`, obj)
         setCurListDetails(obj)
       })
     
   }, [])
+
 
 
 
