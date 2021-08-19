@@ -16,6 +16,8 @@ import {
 } from 'react-router-dom';
 import PodcastDetail from './components/PodcastDetail'
 
+import {PodcastsContextProvider} from './components/context/PodcastsContext'
+
 function App() {
   return (
 
@@ -34,7 +36,7 @@ function App() {
           </ul>
         </nav>
         
-        
+        <PodcastsContextProvider>
         <Switch>
            <Route exact path='/'>
             <h1>Go to Curated Lists</h1>
@@ -52,7 +54,7 @@ function App() {
               <PodcastDetail/>
            </Route>
          </Switch>
-
+        </PodcastsContextProvider>
       </Router>
 
 
