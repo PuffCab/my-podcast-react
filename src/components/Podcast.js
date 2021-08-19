@@ -5,7 +5,7 @@ import PodcastDetail from './PodcastDetail';
 
 const Podcast = ( {elements} ) => {
 
-    console.log(`ELEMENTS`, elements)
+    // console.log(`ELEMENTS`, elements)
     
 return (
         <div>
