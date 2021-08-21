@@ -4,13 +4,14 @@ import {
 } from 'react-router-dom';
 import PodcastList from './PodcastList';
 
-import {PodcastsContext} from "./context/PodcastsContext"
+import {PodcastsContext} from "../context/PodcastsContext"
 
 
 
 
 const ListDetails = () => {
 
+  // const context = useContext(PodcastsContext)
   const {curListDetails, getData} = useContext(PodcastsContext)
   // console.log(`context`, context)
 
