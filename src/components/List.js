@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Paper, Button } from '@material-ui/core' 
 import ListItem from './ListItem'
 import { RestorePageRounded } from '@material-ui/icons'
+import listenNotesIcon_1 from '../images/listenNotesIcon_1.png'
 
 
 
@@ -65,6 +66,9 @@ const List = () => {
                          </Paper>
                          
                 ))}
+                <Paper>
+                <img src={listenNotesIcon_1} alt="ListenNotes icon" width="200" height="25"/>
+                </Paper>
         </div>
 
     )

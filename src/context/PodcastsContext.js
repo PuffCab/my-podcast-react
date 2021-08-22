@@ -7,6 +7,8 @@ export const PodcastsContext = createContext()
 
 
 // 2 -> create provider
+
+// export const PodcastsContextProvider = (props) => {
 export const PodcastsContextProvider = ({children}) => {
     // console.log(`props`, props)
 
@@ -69,6 +71,7 @@ export const PodcastsContextProvider = ({children}) => {
     return (
 
         <PodcastsContext.Provider value={{curListDetails, getData}}>
+            {/* {props.children} */}
             {children}
         </PodcastsContext.Provider>
 

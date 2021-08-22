@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   //FIN styles for Show Description button
 
 const ListItem = ({ curatedList }) => {
-    console.log(`curatedList`, curatedList)
+    // console.log(`curatedList`, curatedList)
 
 
     //INICIO constants for Show description Button
