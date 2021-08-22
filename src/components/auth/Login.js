@@ -104,11 +104,7 @@ const Login = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
-<<<<<<< HEAD
            >
-=======
-          >
->>>>>>> b454a886e15e1340849dd9b62e8e5dfd41841009
             Sign In
           </Button>
           <Grid container>

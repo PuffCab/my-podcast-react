@@ -21,11 +21,8 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import {AuthContextProvider} from "./context/authContext"
 import Navbar from './components/Navbar';
-<<<<<<< HEAD
 import { ThemeProvider } from './context/ThemeContext';
 
-=======
->>>>>>> b454a886e15e1340849dd9b62e8e5dfd41841009
 
 function App() {
   return (
@@ -33,7 +30,6 @@ function App() {
 
     <div className="App">
     {/* <h1>AMOS A VER</h1> */}
-<<<<<<< HEAD
     <ThemeProvider>
       <AuthContextProvider>
         <Router>
@@ -67,39 +63,6 @@ function App() {
         </Router>
         </AuthContextProvider>
       </ThemeProvider>
-=======
-    <AuthContextProvider>
-      <Router>
-       
-        <Navbar/>
-        <PodcastsContextProvider>
-        <Switch>
-           <Route exact path='/'>
-            <h1>Go to Curated Lists</h1>
-           </Route>
-           <Route exact path='/curated'>
-              <List/>
-           </Route>
-           <Route exact path='/curated/:id'>
-              <ListDetails/>
-           </Route>
-           <Route exact path={`/curated/:id/:id`}>
-              <Podcast/>
-           </Route>
-           <Route  exact path={`/podcaslist/:id`}>
-              <PodcastDetail/>
-           </Route> 
-           <Route  exact path={`/register`}>
-              <Register/>
-           </Route>
-           <Route  exact path={`/login`}>
-              <Login/>
-           </Route>
-         </Switch>
-        </PodcastsContextProvider>
-      </Router>
-      </AuthContextProvider>
->>>>>>> b454a886e15e1340849dd9b62e8e5dfd41841009
 
     </div>
 

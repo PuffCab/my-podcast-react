@@ -3,7 +3,6 @@ import {
   } from 'react-router-dom';
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
-<<<<<<< HEAD
 import { ThemeContext} from '../context/ThemeContext'
   
  function Navbar() {
@@ -20,17 +19,6 @@ import { ThemeContext} from '../context/ThemeContext'
     return (
         <nav>
         <button onClick={handleClick}>Enable Dark mode</button>
-=======
-
-  function Navbar() {
-
-    const { user } = useContext(AuthContext)
-
-    console.log(`user`, user)
-
-    return (
-        <nav>
->>>>>>> b454a886e15e1340849dd9b62e8e5dfd41841009
         <p>{user? `User ${user.email} is logged in` : "Not logged in"}</p>
         <ul>
           <li>
