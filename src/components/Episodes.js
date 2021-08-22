@@ -3,8 +3,9 @@ import {
   useParams
 } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
+import {PodcastsContext} from "../context/PodcastsContext"
 
-
+// INICIO imports commented for material UI card player
 // import { makeStyles, useTheme } from '@material-ui/core/styles';
 // import Card from '@material-ui/core/Card';
 // import CardContent from '@material-ui/core/CardContent';
@@ -13,8 +14,9 @@ import Typography from '@material-ui/core/Typography';
 // import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 // import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 // import SkipNextIcon from '@material-ui/icons/SkipNext';
+// FIN imports commented for material UI card player
 
-
+// INICIO Styles commented for material UI card player
 // const useStyles = makeStyles((theme) => ({
 //   root: {
 //     display: 'flex',
@@ -40,7 +42,7 @@ import Typography from '@material-ui/core/Typography';
 //     width: 38,
 //   },
 // }));
-
+// FIN Styles commented for material UI card player
 
 
 
@@ -49,9 +51,10 @@ const Episodes = ({item}) => {
 
     // const {id} = useParams()
     // const item = props.item
-    // var time = 1628499605000 ; 
-    // var date = new Date(time).toLocaleDateString()
-    // console.log(`date`, date)
+
+    const {curListDetails, getData} = React.useContext(PodcastsContext)
+    console.log(`curListDetails`, curListDetails)
+    
 
     let episodeTime = new Date(item.pub_date_ms).toLocaleDateString()
     
@@ -70,9 +73,9 @@ const Episodes = ({item}) => {
         </div>
     );
 
+// INICIO consts and return commented for material UI card player
 //     const classes = useStyles();
 //   const theme = useTheme();
-
 
 //     return (
 //     <Card className={classes.root}>
@@ -105,6 +108,7 @@ const Episodes = ({item}) => {
 //       />
 //     </Card>
 //   );
+// FIN consts and return commented for material UI card player
 };
 
 export default Episodes;

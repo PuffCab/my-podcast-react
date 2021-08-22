@@ -16,26 +16,22 @@ import {
 } from 'react-router-dom';
 import PodcastDetail from './components/PodcastDetail'
 
-import {PodcastsContextProvider} from './components/context/PodcastsContext'
+import {PodcastsContextProvider} from './context/PodcastsContext'
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
+import {AuthContextProvider} from "./context/authContext"
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-
+ 
 
     <div className="App">
     {/* <h1>AMOS A VER</h1> */}
+    <AuthContextProvider>
       <Router>
-        <nav>
-          <ul>
-            <li>
-              <Link to='/'>Home</Link>
-            </li>
-            <li>
-              <Link to='/curated'>Curated Lists</Link>
-            </li>
-          </ul>
-        </nav>
-        
+       
+        <Navbar/>
         <PodcastsContextProvider>
         <Switch>
            <Route exact path='/'>
@@ -52,11 +48,17 @@ function App() {
            </Route>
            <Route  exact path={`/podcaslist/:id`}>
               <PodcastDetail/>
+           </Route> 
+           <Route  exact path={`/register`}>
+              <Register/>
+           </Route>
+           <Route  exact path={`/login`}>
+              <Login/>
            </Route>
          </Switch>
         </PodcastsContextProvider>
       </Router>
-
+      </AuthContextProvider>
 
     </div>
 
