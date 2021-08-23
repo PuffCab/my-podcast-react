@@ -1,6 +1,7 @@
 import {
     Link
   } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import { ThemeContext} from '../context/ThemeContext'
@@ -9,6 +10,7 @@ import { ThemeContext} from '../context/ThemeContext'
 
     const { user } = useContext(AuthContext)
     const {activeTheme, toggleTheme } = useContext(ThemeContext)
+    const history = useHistory()
 
     console.log(`user`, user)
 
@@ -16,9 +18,15 @@ import { ThemeContext} from '../context/ThemeContext'
       // activeTheme === 'light' ? toggleTheme('dark') : toogleTheme('light')
     }
 
+    const handleGoBack = () => {
+        history.goBack()
+        console.log(`history`, history)
+    }
+
     return (
         <nav>
         <button onClick={handleClick}>Enable Dark mode</button>
+        <button onClick={handleGoBack}>Go Back</button>
         <p>{user? `User ${user.email} is logged in` : "Not logged in"}</p>
         <ul>
           <li>
