@@ -20,7 +20,7 @@ import { ThemeContext} from '../context/ThemeContext'
 
     const handleGoBack = () => {
         history.goBack()
-        console.log(`history`, history)
+        // console.log(`history`, history)
     }
 
     return (

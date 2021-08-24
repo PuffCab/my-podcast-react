@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PodcastInfo = ({podcastDetail}) => {
 
-    console.log(`podcastDetail`, podcastDetail)
+    console.log(`podcastDetail`, podcastDetail.episodes)
    
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel'
 // import CarouselItem from './CarouselItem'
+import CheckBoxes from './CheckBoxes';
 
 import Podcast from './Podcast';
 
@@ -15,6 +16,9 @@ const PodcastList = ({curListDetails}) => {
 
     return (
         <div >
+            <Paper>
+                <CheckBoxes/>
+            </Paper>
            <h2>{curListDetails.title}</h2> 
              <p>Number of Podcasts: {curListDetails.total}</p>
              <hr/>

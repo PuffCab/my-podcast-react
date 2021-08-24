@@ -6,35 +6,56 @@ import PodcastInfo from './PodcastInfo';
 
 const PodcastDetail = ({elements}) => {
 
+    console.log(`elements`, elements)
     const [podcastDetail, setPodcastDetail] = React.useState()
     
-    let { id } = useParams()
+    
+
+  //INICIO comentado para local Fetch
+
+  // let { id } = useParams()
     // console.log(id)
+  //   var myHeaders = new Headers();
+  //   myHeaders.append("X-ListenAPI-Key", "3f0625c2f3eb4f8eae96a0293645a931");
 
+  //   var requestOptions = {
+  //       method: 'GET',
+  //       headers: myHeaders,
+  //       redirect: 'follow' 
+  //   };
 
-    var myHeaders = new Headers();
-    myHeaders.append("X-ListenAPI-Key", "3f0625c2f3eb4f8eae96a0293645a931");
+  //    useEffect(() => {
+  //   const getPodcastDetail = async () => {
+  //     const response = await fetch(
+  //       `https://listen-api.listennotes.com/api/v2/podcasts/${id}`, requestOptions
+  //     );
 
-    var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow' 
-    };
-
-     useEffect(() => {
-    const getPodcastDetail = async () => {
-      const response = await fetch(
-        `https://listen-api.listennotes.com/api/v2/podcasts/${id}`, requestOptions
-      );
-
-      const obj = await response.json()
-      // console.log(obj)
-        setPodcastDetail(obj)
-    //   console.log(`response`, response)
+  //     const obj = await response.json()
+  //     // console.log(obj)
+  //       setPodcastDetail(obj)
+  //   //   console.log(`response`, response)
+  //   console.log('i am fetchin to the server', id)
+    
       
-    };
-    getPodcastDetail();
-  }, []);
+  //   };
+  //   getPodcastDetail();
+  // }, []);
+  //FIN comentado para local Fetch
+
+  useEffect(() => {
+    fetch("http://localhost:8002/obj")
+      .then(response => {
+        return response.json()
+      })
+      .then(obj => {
+        console.log(`obj`, obj)
+        setPodcastDetail(obj)
+      }); 
+
+    console.log(podcastDetail)
+     
+    
+  }, [])
 
 
     return (

@@ -14,7 +14,7 @@ export const PodcastsContextProvider = ({children}) => {
 
     // 3 -> move state and function
     const [curListDetails, setCurListDetails] = React.useState()
-
+    
     
     
     
