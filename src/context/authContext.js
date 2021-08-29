@@ -18,10 +18,13 @@ export const AuthContextProvider = ({children}) => {
               // User is signed in, see docs for a list of available properties
               // https://firebase.google.com/docs/reference/js/firebase.User
               var uid = user.uid;
-              console.log(`user`, user)
+              console.log(`user`, uid)
+                setUser(user) //esto nos mantiene logeados cuando refrescamos pagina
+
             } else {
               // User is signed out
-              // ...
+              // ... 
+              console.log('No valid user DB Token')
             }
           });
     }, [])
@@ -32,8 +35,23 @@ export const AuthContextProvider = ({children}) => {
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-                console.log(`user`, user)
                 setUser(user)
+
+                //UPDATE a user's profile/////
+                user.updateProfile({
+                    displayName: name,
+                    // photoURL: "https://example.com/jane-q-user/profile.jpg"
+                  }).then(() => {
+                    const user = firebase.auth().currentUser; //con esto recuperamos el User de la database, antes de hacer el setUser
+                    console.log(`user`, user.displayName)
+                    // Update successful
+                    setUser(user) //set my updated user to the new valu e
+                  }).catch((error) => {
+                    // An error occurred
+                    // ...
+                    console.log(`error`, error)
+                  });  
+                  
             })
             .catch((error) => {
                 const errorCode = error.code;

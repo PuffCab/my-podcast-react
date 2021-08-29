@@ -11,11 +11,15 @@ import { ThemeContext} from '../context/ThemeContext'
     const { user } = useContext(AuthContext)
     const {activeTheme, toggleTheme } = useContext(ThemeContext)
     const history = useHistory()
+    const [modeBtn, setModeBtn] = React.useState('Enable')
 
     console.log(`user`, user)
 
     const handleClick = () => {
-      // activeTheme === 'light' ? toggleTheme('dark') : toogleTheme('light')
+      
+      activeTheme === 'light' ? toggleTheme('dark') : toggleTheme('light');
+      activeTheme === 'light' ? setModeBtn('Disable') : setModeBtn('Enable');//WHY no funciona anhadiendo esa logica en linea anterior con &&?
+      //REVIEW WHY no funciona.....
     }
 
     const handleGoBack = () => {
@@ -25,9 +29,9 @@ import { ThemeContext} from '../context/ThemeContext'
 
     return (
         <nav>
-        <button onClick={handleClick}>Enable Dark mode</button>
+        <button onClick={handleClick}>{modeBtn} Dark mode</button>
         <button onClick={handleGoBack}>Go Back</button>
-        <p>{user? `User ${user.email} is logged in` : "Not logged in"}</p>
+        <p>{user? `User ${user?.displayName ?? ""} ${user.email} is logged in` : "Not logged in"}</p>
         <ul>
           <li>
             <Link to='/'>Home</Link>
@@ -40,6 +44,9 @@ import { ThemeContext} from '../context/ThemeContext'
           </li>
           <li>
             <Link to='/login'>LogIn</Link>
+            <li>
+            <Link to='/chat'>Chat</Link>
+          </li>
           </li>
         </ul>
       </nav>
