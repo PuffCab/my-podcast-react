@@ -51,9 +51,10 @@ const Register = () => {
         console.log(`event`, event)
         event.preventDefault()
         register(state)
+        console.log(`enviadoParaRegistrar`, state)
 
     }
-
+  
     
     return (
         <Container component="main" maxWidth="xs">
@@ -66,6 +67,19 @@ const Register = () => {
           Register New user
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleOnsubmit}>
+        <TextField
+            variant="outlined"
+            margin="normal"
+            // required
+            fullWidth
+            id="name"
+            label="User Name"
+            name="name"
+            autoComplete="name"
+            autoFocus
+            onChange={handleChange}
+            value={state.name}
+          />
           <TextField
             variant="outlined"
             margin="normal"
@@ -103,7 +117,7 @@ const Register = () => {
             color="primary"
             className={classes.submit}
           >
-            Sign In
+            Register
           </Button>
           <Grid container>
             <Grid item xs>
@@ -112,8 +126,8 @@ const Register = () => {
               </Link> */}
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href={'/login'} variant="body2" >
+                {"Already have an Account? Log In"}
               </Link>
             </Grid>
           </Grid>
