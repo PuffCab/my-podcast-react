@@ -44,9 +44,12 @@ import { ThemeContext} from '../context/ThemeContext'
           </li>
           <li>
             <Link to='/login'>LogIn</Link>
-            <li>
+          </li>
+          <li>
             <Link to='/chat'>Chat</Link>
           </li>
+          <li>
+            <Link to='/googlechat'>GoogleChat</Link>
           </li>
         </ul>
       </nav>

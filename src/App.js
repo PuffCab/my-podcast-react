@@ -24,6 +24,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { ChatContextProvider } from './context/chatContext';
 import Navbar from './components/Navbar';
 import ChatRoom from './components/ChatRoom';
+import GoogleChatApp from './components/GoogleChatApp';
 
 
 
@@ -79,6 +80,9 @@ function App() {
                       <Login/>
                   </Route>
                   <PrivateRoute component={ChatRoom} exact path ='/chat' />
+                  <Route  exact path={`/googlechat`}>
+                      <GoogleChatApp/>
+                  </Route>
               </Switch>
             </ChatContextProvider>
           </PodcastsContextProvider>
