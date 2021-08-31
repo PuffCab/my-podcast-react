@@ -52,8 +52,8 @@
     margin: 0 auto;
   }
   
-  h1.googleChatHeader {
-    background-color: #968d8d11;
+  h1.GoogleChatApp {
+    background-color: #968d8dbd;
   }
   
    /* header {
@@ -73,22 +73,22 @@
     box-sizing: border-box;
   } */
   
-   /* section {
+   section.GoogleChatApp {
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 100vh;
     background-color: rgb(40, 37, 53);
-  } */
+  }
   
-  /* main {
+  main.GoogleChatApp {
     padding: 10px;
     height: 80vh;
     margin: 10vh 0 10vh;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-  } */
+  }
   
   main::-webkit-scrollbar {
     width: 0.25rem;
@@ -102,7 +102,7 @@
     background: #6649b8;
   }
   
-  /* form {
+  form.GoogleChatApp {
     height: 10vh;
     position: fixed;
     bottom: 0;
@@ -111,15 +111,15 @@
     max-width: 728px;
     display: flex;
     font-size: 1.5rem;
-  } */
+  }
   
-  form button {
+  form.GoogleChatApp button.GoogleChatApp {
     width: 20%;
     background-color: rgb(56, 56, 143);
   }
   
   
-  /* input {
+  input.GoogleChatApp {
     line-height: 1.5;
     width: 100%;
     font-size: 1.5rem;
@@ -128,9 +128,9 @@
     outline: none;
     border: none;
     padding: 0 10px;
-  } */
+  }
   
-  .GoogleChatApp button {
+   button.GoogleChatApp {
     background-color: #282c34; /* Green */
     border: none;
     color: white;
@@ -148,7 +148,7 @@
   }
   
   
-  .sign-in {
+  .sign-btn {
     color: #282c34;
     background: white;
     max-width: 400px;

@@ -30,11 +30,12 @@ function GoogleChatApp() {
 
     return (
         <div className='googleChatBody'>
-            <header className='googleChatBody'>
-                <h1>GoogleChat</h1>
+            <header className='GoogleChatApp'>
+                <h1 className='GoogleChatApp'>GoogleChat</h1>
+                <GoogleSignOut/>
             </header>
 
-            <section>
+            <section className='GoogleChatApp'>
                 {user ? <GoogleChatRoom /> : <GoogleLogin/>}
             </section>
             
@@ -51,14 +52,14 @@ function GoogleLogin() {
 
 
      return (
-         <button className="sign-in" onClick={signInWithGoogle}>Sing in with Google</button>
+         <button className="sign-btn" onClick={signInWithGoogle}>Sing in with Google</button>
      )
  }
 
  function GoogleSignOut() {
     //En el return decimos que si hay un User , nos cree un boton de signout 
     return auth.currentUser && (
-        <button onClick={() => auth.signOut()}>Sign Out</button>
+        <button className="sign-btn" onClick={() => auth.signOut()}>Sign Out</button>
      )
  }
 
@@ -105,7 +106,7 @@ function GoogleLogin() {
     //y pasamos los datos de cada documento (oneMsg) as props en "message"
     return (
         <>
-            <main>
+            <main className='GoogleChatApp'>
 
                 <div>
                     {googleChatMesssages && googleChatMesssages.map(oneMsg => 
@@ -117,9 +118,9 @@ function GoogleLogin() {
             </main>
 
 
-            <form onSubmit={sendMessage}>
-                <input value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
-                <button type='submit'>send</button>
+            <form className='GoogleChatApp' onSubmit={sendMessage}>
+                <input className='GoogleChatApp' value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
+                <button className='GoogleChatApp' type='submit'>send</button>
             </form>
 
                  
