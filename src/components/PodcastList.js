@@ -24,7 +24,7 @@ const PodcastList = ({curListDetails}) => {
              <hr/>
              <p>{curListDetails.description}</p>
              <hr/>
-             <List
+             {/* <Carousel
                 next={(next, active) => console.log(`we left ${active}, and are now at ${next}`)}
                 prev={(prev, active) => console.log(`we left ${active}, and are now at ${prev}`)}
              >
@@ -33,8 +33,16 @@ const PodcastList = ({curListDetails}) => {
                     return (
                             <Podcast key={item.id} elements={item}/>                    )
                 })}
-             </List>
-              
+             </Carousel> */}
+             <div className='pocast-list'>
+                <List >
+                {
+                    podcasts && podcasts.map((item) =>{
+                        return (
+                                <Podcast key={item.id} elements={item}/>                    )
+                    })}
+                </List>
+            </div>
         </div>
     );
 };

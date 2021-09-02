@@ -18,11 +18,14 @@ const flexContainer = { display: 'flex', flexDirection: 'column' }
     const handleOnchange = (e) => {
         setBody(e.target.value)
         // console.log(`e`, body)
+        
+        
     }
 
     const handleWriteMessages = () => {
         writeMessage(body)
-        // console.log(`body`, body)
+        console.log(`body`, body)
+        setBody('')
     }
 
     
@@ -32,14 +35,14 @@ const flexContainer = { display: 'flex', flexDirection: 'column' }
              <h2>Chat Room</h2>
              {/* write messages */}
              <input type="text" placeholder='message' value={body} onChange={handleOnchange} />
-             <button onClick={handleWriteMessages}>write message</button>
+             <button type='reset' onClick={handleWriteMessages}>write message</button>
              {/* read messages */}  
              {/* REVIEW formato fecha. aparece 1.1.1970 */}
              {messages ? messages.map((message, index) => {
                  return (
                      <div>
                          <h5>{message.name}</h5>
-                         <h6>{new Date(message.timestamp.seconds).toLocaleString()}</h6>
+                         <h6>{message.timestamp.toDate().toLocaleString()}</h6>
                          <p>{message.body}</p>
                      </div>
                  )

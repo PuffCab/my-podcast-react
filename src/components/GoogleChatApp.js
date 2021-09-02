@@ -67,8 +67,10 @@ function GoogleLogin() {
  function GoogleChatRoom() {
     //hacemos referencia a la colecion de mensajes creada en firestore
     const messagesRef = db.collection('googleChatMesssages')
-    //hacemos una query, pedimos, los mensajes, los ordenamos y limitamos el numero
-    const query = messagesRef.orderBy('createdAt').limit(25)
+    //hacemos una query, pedimos, los mensajes, los ordenamos y limitamos el numro a mostrar  (por practico para testar)
+    const query = messagesRef.orderBy('createdAt').limit(50)
+    
+    
 
     //escuchamos cada cambio en la database en tiempo real con el useCollectionData hook, que retorna un array de objects en el que cada object es el chatmessage en la database
     //y cada vez que la database cambia, reacciona en realtime haciendo un rerendering.
@@ -132,9 +134,9 @@ function GoogleLogin() {
     )
  }
 
- function GchatMessage(props) {
+ function GchatMessage({ message }) {
     //accedemos al mensaje a traves de las props enviadas desde su componente padre.
-    const {text, uid, photoURL} = props.message
+    const {text, uid, photoURL} = message
 
     //diferenciamos entre mensj reciv y enviados comparando el uid y usando nombre css clases
     const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received'

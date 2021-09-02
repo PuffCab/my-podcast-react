@@ -201,3 +201,11 @@
     margin: 2px 5px;
   }
   
+
+
+  /* Style de la lista de podcasts con imagenes. centrarla */
+  div.pocast-list {
+    display: flex;
+    justify-content: center;
+  }
+  /* FIN*/

@@ -14,6 +14,7 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,19 +40,22 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
     const classes = useStyles();
 
-    const [state, setstate] = useState({ email: "", password: ""})
+    let history = useHistory();
+
+    const [profile, setProfile] = useState({ email: "", password: ""})
     const {login} = useContext(AuthContext)
 
     const handleChange = (e) => {
         // console.log(`e`, e)
-        setstate({ ...state, [e.target.name] : e.target.value});
+        setProfile({ ...profile, [e.target.name] : e.target.value});
 
     }
 
     const handleOnsubmit = (event) => {
         console.log(`event`, event)
         event.preventDefault()
-        login(state)
+        login(profile)
+        history.push('/curated')
         
 
     }
@@ -79,7 +83,7 @@ const Login = () => {
             autoComplete="email"
             autoFocus
             onChange={handleChange}
-            value={state.email}
+            value={profile.email}
           />
           <TextField
             variant="outlined"
@@ -92,7 +96,7 @@ const Login = () => {
             id="password"
             autoComplete="current-password"
             onChange={handleChange}
-            value={state.password}
+            value={profile.password}
           />
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

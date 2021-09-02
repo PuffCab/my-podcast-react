@@ -1,7 +1,11 @@
 
 import React, { useState, createContext, useEffect } from "react";
 import firebase from "../config"
+import firebaseapp from "firebase/app";
 
+
+
+const db = firebase.firestore();
 export const AuthContext = createContext()
 
 
@@ -9,6 +13,38 @@ export const AuthContext = createContext()
 export const AuthContextProvider = ({children}) => {
 
     const [user, setUser] = useState(null)
+
+    //create the first Database document for the User profile
+    const addDocFavorite = (user) => {
+        // console.log(`user`, user.uid)
+
+        // console.log(`userDescrip`, userDescription)
+        //userDisplayName   
+        //UID
+        //timeStamp
+        //UserDescription
+        //item.audio
+        //item.title
+        //podcastDetail.thumbnail
+        //PodcastDetail.title
+        db.collection("userProfile").doc(user.uid).set({
+            // name : user.name,
+            uid:user.uid,
+            userDescription : [],
+            timestamp: firebaseapp.firestore.FieldValue.serverTimestamp(),
+            favEpisodes: [],
+            favPodcasts : []
+                
+            
+                
+        })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+    }
 
     
     //INICIO Get the currently signed-in user. 
@@ -19,11 +55,12 @@ export const AuthContextProvider = ({children}) => {
               // https://firebase.google.com/docs/reference/js/firebase.User
               var uid = user.uid;
               console.log(`user`, uid)
+              console.log(`usercredential`, uid)
                 setUser(user) //esto nos mantiene logeados cuando refrescamos pagina
 
             } else {
               // User is signed out
-              // ... 
+              setUser(null)
               console.log('No valid user DB Token')
             }
           });
@@ -46,6 +83,7 @@ export const AuthContextProvider = ({children}) => {
                     console.log(`user`, user.displayName)
                     // Update successful
                     setUser(user) //set my updated user to the new valu e
+                    addDocFavorite(user) // 
                   }).catch((error) => {
                     // An error occurred
                     // ...

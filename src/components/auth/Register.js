@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,20 +39,22 @@ const useStyles = makeStyles((theme) => ({
 const Register = () => {
     const classes = useStyles();
 
-    const [state, setstate] = useState({ email: "", password: "", name:""})
+    let history = useHistory();
+    const [profile, setProfile] = useState({ email: "", password: "", name:""})
     const {register} = useContext(AuthContext)
 
     const handleChange = (e) => {
         console.log(`e`, e.target.value)
-        setstate({ ...state, [e.target.name] : e.target.value});
+        setProfile({ ...profile, [e.target.name] : e.target.value});
         
     }
 
     const handleOnsubmit = (event) => {
         console.log(`event`, event)
         event.preventDefault()
-        register(state)
-        console.log(`enviadoParaRegistrar`, state)
+        register(profile)
+        history.push("/curated")
+        console.log(`enviadoParaRegistrar`, profile)
 
     }
   
@@ -78,7 +81,7 @@ const Register = () => {
             autoComplete="name"
             autoFocus
             onChange={handleChange}
-            value={state.name}
+            value={profile.name}
           />
           <TextField
             variant="outlined"
@@ -91,7 +94,7 @@ const Register = () => {
             autoComplete="email"
             autoFocus
             onChange={handleChange}
-            value={state.email}
+            value={profile.email}
           />
           <TextField
             variant="outlined"
@@ -104,7 +107,7 @@ const Register = () => {
             id="password"
             autoComplete="current-password"
             onChange={handleChange}
-            value={state.password}
+            value={profile.password}
           />
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

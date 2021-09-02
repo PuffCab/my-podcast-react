@@ -18,6 +18,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import Episodes from './Episodes';
 
+import podcastIcon_angle from '../images/podcastIcon_angle.png'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +46,13 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    // backgroundColor: red[500],
+    
+  },
+  imageAvatar : {
+    
+      width: "60px",
+      height: "60px"
   },
 }));
 
@@ -77,14 +85,14 @@ const PodcastInfo = ({podcastDetail}) => {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            <img className={classes.imageAvatar} src={podcastIcon_angle} />
           </Avatar>
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
         title={podcastDetail.title}
         subheader={lastEpisodeTime}
       />

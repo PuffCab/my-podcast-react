@@ -51,6 +51,9 @@ import { ThemeContext} from '../context/ThemeContext'
           <li>
             <Link to='/googlechat'>GoogleChat</Link>
           </li>
+          <li>
+            <Link to='/userProfile'>User Profile</Link>
+          </li>
         </ul>
       </nav>
     )
