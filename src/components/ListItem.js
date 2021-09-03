@@ -44,7 +44,7 @@ const ListItem = ({ curatedList }) => {
             <div>
             <Link
                 to={`/curated/${curatedList.id}`}
-                style={{ textDecoration: "none", color: "black" }}
+                style={{ textDecoration: "none", color: "white" }}
                 >
                 
                     <h3>{curatedList.title}</h3>
@@ -58,7 +58,7 @@ const ListItem = ({ curatedList }) => {
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
                     aria-label="show more"
-                    style={{ fontSize: "15px" }}
+                    style={{ fontSize: "15px", color: 'white' }}
                 >
                     {" "}
                      Description

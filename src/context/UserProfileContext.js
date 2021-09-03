@@ -18,6 +18,7 @@ export const UserProfileContextProvider = ({children}) => {
     const {user} = useContext(AuthContext)
     const [favorites, setFavorites] = useState([])
 
+
     console.log(user)
 
 
@@ -39,7 +40,7 @@ export const UserProfileContextProvider = ({children}) => {
     // }
     //FIN comentado para cambiar el metodo por arrayUnion
 
-    const addFavorite = (userDescription) => {
+    const addFavorite = (userText) => {
         // console.log(`user`, user.uid)
         // console.log(`userDescrip`, userDescription)
 
@@ -53,9 +54,11 @@ export const UserProfileContextProvider = ({children}) => {
         //podcastDetail.thumbnail
         //PodcastDetail.title
         userRef.update({
-            userText : firebaseapp.firestore.FieldValue.arrayUnion({
-                userDescription
-            })
+            userDescription : firebaseapp.firestore.FieldValue.arrayUnion({
+                userText
+                
+            }),
+            
         })
         .then(() => {
             console.log("Document successfully written!");
@@ -66,6 +69,34 @@ export const UserProfileContextProvider = ({children}) => {
     }
 
 
+    const addFavAudio = (audioFile) => {
+        // console.log(`user`, user.uid)
+        // console.log(`userDescrip`, userDescription)
+
+        const userRef = db.collection("userProfile").doc(user.uid);
+        //userDisplayName   
+        //UID
+        //timeStamp
+        //UserDescription
+        //item.audio
+        //item.title
+        //podcastDetail.thumbnail
+        //PodcastDetail.title
+        userRef.update({
+            favEpisodes : firebaseapp.firestore.FieldValue.arrayUnion({
+                audioFile
+                
+            }),
+            
+        })
+        .then(() => {
+            console.log("Audio successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });;
+    }
+
 
     //get Favorites from Firebase
     const getFavorites = () => {
@@ -75,12 +106,12 @@ export const UserProfileContextProvider = ({children}) => {
             const favoritesArray = []
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
-                favoritesArray.push(doc.data())
-                console.log(`favoritesArray`, doc.id)
+                favoritesArray.push(doc)
+                console.log(`favoritesArray`, doc)
             });
             
             setFavorites(favoritesArray)
-            // console.log(`favoritesArray`, favorites[0].id)
+            console.log(`favoritesArray`, favoritesArray)
         });
         
     }
@@ -118,7 +149,7 @@ export const UserProfileContextProvider = ({children}) => {
 
 
     return (
-        <UserProfileContext.Provider value={{favorites, addFavorite, getFavorites, deleteFavorite}}>
+        <UserProfileContext.Provider value={{favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite}}>
             {children}
         </UserProfileContext.Provider>
     )

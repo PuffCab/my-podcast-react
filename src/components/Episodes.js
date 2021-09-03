@@ -1,9 +1,11 @@
 import React from 'react';
+import { useContext } from 'react'; 
 import {
   useParams
 } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import {PodcastsContext} from "../context/PodcastsContext"
+import { UserProfileContext } from '../context/UserProfileContext'
 
 // INICIO imports commented for material UI card player
 // import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -51,24 +53,35 @@ const Episodes = ({item}) => {
 
     // const {id} = useParams()
     // const item = props.item
-
-    const {curListDetails, getData} = React.useContext(PodcastsContext)
+    
+    const {curListDetails, getData} = useContext(PodcastsContext)
     console.log(`curListDetails`, curListDetails)
+    
+    const { addFavorite, deleteFavorite, addFavAudio } = useContext(UserProfileContext)
     
 
     let episodeTime = new Date(item.pub_date_ms).toLocaleDateString()
-    
 
+    const handleAddFavorite = (audio) => {
+        addFavAudio(audio)
+        
+    
+    }
     // console.log(item)
     return (
         <div>
             <Typography paragraph style={{fontSize: "12px"} }>
                 {item.title}&emsp;
                  Published: {episodeTime}
-                <audio controls>
-                    
-                    <source src={item.audio} type="audio/mpeg"/>
-                </audio> 
+                <div>
+                    <audio controls>
+                        
+                        <source src={item.audio} type="audio/mpeg"/>
+                        {/* <button onClick={() => handleDelete(fav.userText)}>delete</button> */}
+                        
+                    </audio> 
+                    <button onClick={() => handleAddFavorite(item.audio)}>Add to Fav</button>
+                </div>
             </Typography>
         </div>
     );

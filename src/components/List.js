@@ -5,10 +5,6 @@ import { RestorePageRounded } from '@material-ui/icons'
 import listenNotesIcon_1 from '../images/listenNotesIcon_1.png'
 
 
-
-
-
-
 const List = () => {
     
     const [data, setData] = useState()
@@ -61,8 +57,11 @@ const List = () => {
         <div>
             {
                 data && data.map((item, id) => (
-                         <Paper>
-                            <ListItem key={item.id} curatedList={item} />
+                         <Paper style={{ margin: '10px',
+    borderRadius: '5px', color: 'white', backgroundColor: 'black'
+}}>
+                            <ListItem key={item.id} curatedList={item} style={{  color: 'white'
+}}/>
                          </Paper>
                          
                 ))}

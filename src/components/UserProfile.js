@@ -15,7 +15,7 @@ function UserProfile() {
     
     const { user } = useContext(AuthContext)
 
-    const { favorites, addFavorite, getFavorites, deleteFavorite } = useContext(UserProfileContext)
+    const { favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite } = useContext(UserProfileContext)
     
     const [userDescription, setUserDescription] = useState("")
 
@@ -46,9 +46,9 @@ function UserProfile() {
     }
     //FIN eliminar estas funciones //////////////////////
     
-    const handleDelete = (deleteUserDescrip) => { 
-        deleteFavorite(deleteUserDescrip)           //REVIEW porque aunque pase este argumnto a la funcionn, n userProfileContext no puedo llamar el argumento igual
-        console.log(`userDescription`, deleteUserDescrip)
+    const handleDelete = (deleteUserText) => { 
+        deleteFavorite(deleteUserText)           //REVIEW porque aunque pase este argumnto a la funcionn, n userProfileContext no puedo llamar el argumento igual
+        // console.log(`userDescription`, deleteUserText)
     }
     
     
@@ -58,7 +58,7 @@ function UserProfile() {
     return (
         <div style={flexContainer}>
             <h1>User Profile</h1>
-            <p>{user? `Profile from ${user?.displayName ?? ""} ${user.email}` : "Not logged in"}</p>
+            <p>{user? `Profile from ${user?.displayName ?? ""} ${user.email} and uid ${user.uid}` : "Not logged in"}</p>
             <br />
             <br />
 
@@ -70,24 +70,55 @@ function UserProfile() {
              {/* read messages */}  
              
              {favorites ? favorites.map((favorite, index) => {
-                if (favorite.uid === user.uid) {
-                    {console.log('FAVORITE', favorite)}
+                 {/* {console.log("this is favorites", favorites)} */}
+                if (favorite.id === user.uid) {
+                    {console.log('FAVORITE', favorite.data())}
                  return (
-                     <div>
-                         
-                         <h5>Favorites Area</h5>
-                         <h6>{favorite.timestamp.toDate().toLocaleString()}</h6>
-                         {favorite ? favorite.userText.map((algo, index) => {
-                            {console.log("segundoLoop", algo.index)}
+                     <div className='container'>
+                         <div className='row'>
+                         <div className='col'>
+                            <h5>Favorites Area</h5>
+                         {/* <h6>{favorite.toData().timestamp.toDate().toLocaleString()}</h6> */}
+                         {favorite.data() ? favorite.data().userDescription.map((fav, index) => {
+                            {console.log("segundoLoop", fav.index)}
+
                             return (
-                            <div>
-                                <p> {algo.userDescription}</p>
-                                <p>{index}</p>
-                                    <button onClick={() => handleDelete(algo.userDescription)}>delete</button>
+                            <div >
+                                
+                                    <div className='col order-last'>
+                                        <p> {fav.userText}</p>
+                                        <p>{index}</p>
+                                            <button onClick={() => handleDelete(fav.userText)}>delete</button>
+                                    </div>
+                    
+                                </div>
+                            
+                            )
+                         }) : <p>no userTexts yet</p>}  
+                         </div>
+                        
+                         
+                         <div className='col'>
+                            <h3>Fav Episodes</h3>
+                         {favorite.data() ? favorite.data().favEpisodes.map((fav, index) => {
+                            {console.log("segundoLoop", fav.index)}
+
+                            return (
+                            <div className='col order-last'>
+                                <div >
+                                    <div >
+                                        <p> {fav.audioFile}</p>
+                                        <p>{index}</p>
+                                            <button onClick={() => handleDelete(fav.userText)}>delete</button>
+                                    </div>
+                                </div>
                             </div>
                             )
-                         }) : "no userTexts yet"}
+                         }) : <p>no userTexts yet</p>}  
+                         </div>
                         
+                         
+                        </div>
                          
                      </div>
                  )
