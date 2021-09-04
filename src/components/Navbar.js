@@ -9,6 +9,7 @@ import { ThemeContext} from '../context/ThemeContext'
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
   
  function Navbar() {
 
@@ -78,9 +79,11 @@ import MenuItem from '@material-ui/core/MenuItem';
     
       return (
         <div>
+        <p>{user? `${user?.displayName ?? ""} ${user.email}` : "Not logged in"}</p>
           <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
             Open Menu
           </Button>
+          <ArrowBackIcon onClick={handleGoBack}>Go Back</ArrowBackIcon>
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
@@ -88,40 +91,34 @@ import MenuItem from '@material-ui/core/MenuItem';
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>
-            <Link >Home</Link>
-            </MenuItem>
-            
-            <MenuItem onClick={handleClose}>
-            <Link to='/userProfile'>User Profile</Link>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-            <Link to='/login'>LogIn</Link>
-            </MenuItem>
+                <MenuItem onClick={handleClose}>
+                    <Link to='/'>Home</Link>
+                </MenuItem>
+                
+                <MenuItem onClick={handleClose}>
+                    <Link to='/curated'>Curated Lists</Link>
+                </MenuItem>
+                
+                <MenuItem onClick={handleClose}>
+                    <Link to='/register'>New User Registration</Link>
+                </MenuItem>
 
-            <MenuItem onClick={handleClose}>
-            <Link to='/login'>LogIn</Link>
-            </MenuItem>
+                <MenuItem onClick={handleClose}>
+                    <Link to='/login'>LogIn</Link>
+                </MenuItem>
 
-            <MenuItem onClick={handleClose}>
-            <Link to='/login'>LogIn</Link>
-            </MenuItem>
-            
-            <MenuItem onClick={handleClose}>
-            <Link to='/login'>LogIn</Link>
-            </MenuItem>
+                <MenuItem onClick={handleClose}>
+                    <Link to='/chat'>Chat</Link>
+                </MenuItem>
+                
+                <MenuItem onClick={handleClose}>
+                   <Link to='/googlechat'>GoogleChat</Link>
+                </MenuItem>
 
-            <MenuItem onClick={handleClose}>
-            <Link to='/login'>LogIn</Link>
-            </MenuItem>
+                <MenuItem onClick={handleClose}>
+                    <Link to='/userProfile'>User Profile</Link>
+                </MenuItem>
 
-            <MenuItem onClick={handleClose}>
-            <Link to='/login'>LogIn</Link>
-            </MenuItem>
-
-            <MenuItem onClick={handleClose}>
-            <Link to='/login'>LogIn</Link>
-            </MenuItem>
           </Menu>
         </div>
       );

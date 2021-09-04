@@ -69,11 +69,13 @@ function GoogleLogin() {
     const messagesRef = db.collection('googleChatMesssages')
     //hacemos una query, pedimos, los mensajes, los ordenamos y limitamos el numro a mostrar  (por practico para testar)
     const query = messagesRef.orderBy('createdAt').limit(50)
+
+    console.log(`QUERY`, messagesRef)
     
     
 
     //escuchamos cada cambio en la database en tiempo real con el useCollectionData hook, que retorna un array de objects en el que cada object es el chatmessage en la database
-    //y cada vez que la database cambia, reacciona en realtime haciendo un rerendering.
+    //y cada vez que la database cambia, reacciona en realtime haciendo un rerendering, Actualizando la lista mensajes
     const [googleChatMesssages] = useCollectionData(query, {idField: 'id'})
 
     //anhadimos un State para almacenar lo que tecleemos y unimos el onchange al state.
@@ -143,7 +145,7 @@ function GoogleLogin() {
     
     return (
         <div className={`message ${messageClass}`}>
-            <img className='imgGchat' src={photoURL}/>
+            <img className='imgGchat' src={photoURL} alt='userImg'/>
             <p className='imgGchat'>{text}</p>
 
         </div>

@@ -62,6 +62,7 @@ export const UserProfileContextProvider = ({children}) => {
         })
         .then(() => {
             console.log("Document successfully written!");
+            getFavorites()
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -91,6 +92,7 @@ export const UserProfileContextProvider = ({children}) => {
         })
         .then(() => {
             console.log("Audio successfully written!");
+            getFavorites() //to update the list instantly
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -128,16 +130,36 @@ export const UserProfileContextProvider = ({children}) => {
 
     // }
 
-    const deleteFavorite = (userDescription) => {  //REVIEW userDescription lo recibo del handleDelete del UserProfil...pero porque si no lllamo igual el argumen que el field mas abajo, no funciona?
+    const deleteFavorite = (userText) => {  //REVIEW userText lo recibo del handleDelete del UserProfil...pero porque si no lllamo igual el argumen que el field mas abajo, no funciona?
         const userRef = db.collection("userProfile").doc(user.uid);
         
         userRef.update({
-            userText : firebaseapp.firestore.FieldValue.arrayRemove({
-                userDescription
+            userDescription : firebaseapp.firestore.FieldValue.arrayRemove({
+                userText
             })
         })
         .then(() => {
             console.log("Document successfully Deleted!");
+            getFavorites() //to update the list instantly
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });;
+
+    }
+
+
+    const deleteFavAudio = (audioFile) => {  
+        const userRef = db.collection("userProfile").doc(user.uid);
+        
+        userRef.update({
+            favEpisodes : firebaseapp.firestore.FieldValue.arrayRemove({
+                audioFile
+            })
+        })
+        .then(() => {
+            console.log("Document successfully Deleted!");
+            getFavorites() //to update the list instantly
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -149,7 +171,7 @@ export const UserProfileContextProvider = ({children}) => {
 
 
     return (
-        <UserProfileContext.Provider value={{favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite}}>
+        <UserProfileContext.Provider value={{favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite, deleteFavAudio}}>
             {children}
         </UserProfileContext.Provider>
     )

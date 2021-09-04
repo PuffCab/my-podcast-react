@@ -15,7 +15,7 @@ function UserProfile() {
     
     const { user } = useContext(AuthContext)
 
-    const { favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite } = useContext(UserProfileContext)
+    const { favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite, deleteFavAudio  } = useContext(UserProfileContext)
     
     const [userDescription, setUserDescription] = useState("")
 
@@ -41,17 +41,21 @@ function UserProfile() {
 
     const handleAddFavorite = () => {
         addFavorite(userDescription)
-        console.log(`userDescrip`, userDescription)
+        
         setUserDescription('')
+        console.log(`userDescrip`, userDescription)
     }
     //FIN eliminar estas funciones //////////////////////
     
     const handleDelete = (deleteUserText) => { 
         deleteFavorite(deleteUserText)           //REVIEW porque aunque pase este argumnto a la funcionn, n userProfileContext no puedo llamar el argumento igual
-        // console.log(`userDescription`, deleteUserText)
+        console.log(`deleteUserText`, deleteUserText)
+        
     }
     
-    
+    const handleDeleteAudioFav = (deleteAudioFav) => { 
+        deleteFavAudio(deleteAudioFav)
+    }
      
     
     
@@ -72,7 +76,8 @@ function UserProfile() {
              {favorites ? favorites.map((favorite, index) => {
                  {/* {console.log("this is favorites", favorites)} */}
                 if (favorite.id === user.uid) {
-                    {console.log('FAVORITE', favorite.data())}
+                    {/* {console.log('FAVORITE', favorite.data())} */}
+                    
                  return (
                      <div className='container'>
                          <div className='row'>
@@ -80,7 +85,7 @@ function UserProfile() {
                             <h5>Favorites Area</h5>
                          {/* <h6>{favorite.toData().timestamp.toDate().toLocaleString()}</h6> */}
                          {favorite.data() ? favorite.data().userDescription.map((fav, index) => {
-                            {console.log("segundoLoop", fav.index)}
+                            
 
                             return (
                             <div >
@@ -101,7 +106,6 @@ function UserProfile() {
                          <div className='col'>
                             <h3>Fav Episodes</h3>
                          {favorite.data() ? favorite.data().favEpisodes.map((fav, index) => {
-                            {console.log("segundoLoop", fav.index)}
 
                             return (
                             <div className='col order-last'>
@@ -109,7 +113,7 @@ function UserProfile() {
                                     <div >
                                         <p> {fav.audioFile}</p>
                                         <p>{index}</p>
-                                            <button onClick={() => handleDelete(fav.userText)}>delete</button>
+                                            <button onClick={() => handleDeleteAudioFav(fav.audioFile)}>delete</button>
                                     </div>
                                 </div>
                             </div>
