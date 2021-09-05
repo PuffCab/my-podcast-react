@@ -1,6 +1,10 @@
 import React from 'react'
 import { createContext, useContext, useState, useEffect } from 'react';
 
+import { Link } from 'react-router-dom';
+import { Paper, Button, IconButton } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'; 
+
 
 import { AuthContext } from "../context/authContext";
 import { UserProfileContext } from '../context/UserProfileContext';
@@ -15,7 +19,7 @@ function UserProfile() {
     
     const { user } = useContext(AuthContext)
 
-    const { favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite, deleteFavAudio  } = useContext(UserProfileContext)
+    const { favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast  } = useContext(UserProfileContext)
     
     const [userDescription, setUserDescription] = useState("")
 
@@ -56,82 +60,122 @@ function UserProfile() {
     const handleDeleteAudioFav = (deleteAudioFav) => { 
         deleteFavAudio(deleteAudioFav)
     }
+
+    const handleDeleteFavPost = (podcast) => { 
+        deleteFavPodcast(podcast)
+    }
      
-    
+    // REVIEW wich logic implement to avoid "cannot map of undefined" when the user has no Fav yet?
     
     return (
-        <div style={flexContainer}>
-            <h1>User Profile</h1>
-            <p>{user? `Profile from ${user?.displayName ?? ""} ${user.email} and uid ${user.uid}` : "Not logged in"}</p>
-            <br />
-            <br />
+            <div style={flexContainer}>
+                    <h1>{user? `${user?.displayName ?? user.email }'S profile` : "Not logged in"}</h1>
+                    <p>uid {`${user.uid}`}</p>
+                    <br />
+                    <br />
 
-            <div  >
-             <h3>User description</h3>
-             {/* write messages */}
-             <input type="text" placeholder='message' value={userDescription} onChange={handleOnchange} />
-             <button onClick={handleAddFavorite}>write description</button>
-             {/* read messages */}  
-             
-             {favorites ? favorites.map((favorite, index) => {
-                 {/* {console.log("this is favorites", favorites)} */}
-                if (favorite.id === user.uid) {
-                    {/* {console.log('FAVORITE', favorite.data())} */}
+                <div  >
+                    <h3>User description</h3>
+                    {/* write messages */}
+                    <input type="text" placeholder='message' value={userDescription} onChange={handleOnchange} />
+                    <button onClick={handleAddFavorite}>write description</button>
+                    {/* read messages */}  
                     
-                 return (
-                     <div className='container'>
-                         <div className='row'>
-                         <div className='col'>
-                            <h5>Favorites Area</h5>
-                         {/* <h6>{favorite.toData().timestamp.toDate().toLocaleString()}</h6> */}
-                         {favorite.data() ? favorite.data().userDescription.map((fav, index) => {
+                    {favorites ? favorites.map((favorite, index) => {
+                        {/* {console.log("this is favorites", favorites)} */}
+                        if (favorite.id === user.uid) {
+                            {/* {console.log('FAVORITE', favorite.data())} */}
                             
+                        return (
+                                <div className='container'>
+                                    <div className='row'>
+                                        <div className='col'>
+                                            <h5>Favorites Area</h5>
+                                            {/* <h6>{favorite.toData().timestamp.toDate().toLocaleString()}</h6> */}
+                                            {favorite.data() ? favorite.data().userDescription.map((fav, index) => {
+                                                {console.log('FAVORITE', favorite.data())}
+                                                
 
-                            return (
-                            <div >
+                                                return (
+                                                    <div >
+                                                    
+                                                        <div className='col order-last'>
+                                                            <p> {fav.userText}</p>
+                                                            <p>{index}</p>
+                                                            <IconButton aria-label="delete" onClick={() => handleDelete(fav.userText)}>
+                                                                <DeleteIcon />
+                                                            </IconButton>
+                                                               
+                                                        </div>
+                                        
+                                                    </div>
+                                                
+                                                )
+                                            }) : <p>no userTexts yet</p>}  
+                                        </div>
+                                        
+                                        
+                                        <div className='col'>
+                                            <h3>Fav Episodes</h3>
+                                            {favorite.data() ? favorite.data().favEpisodes.map((fav, index) => {
+
+                                                return (
+                                                    <div className='col order-last'>
+                                                        <div >
+                                                            <div >
+                                                                <p>{index}</p>
+                                                                <audio controls preload='none'>                    
+                                                                    <source src={fav.audioFile} type="audio/mpeg" preload='none' />
+                                                                    Audio file is not supported                      
+                                                                </audio>
+                                                                <IconButton aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audioFile)}>
+                                                                    <DeleteIcon />
+                                                                </IconButton>
+                                                                    
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }) : <p>no userTexts yet</p>}  
+                                         </div>
+
+                                         <div className='col'>
+                                            <h3>PODCAST FAVORITOS</h3>
+                                            {favorite.data() ? favorite.data().favPodcast.map((fav, index) => {
+
+                                                return (
+                                                    <div className='col order-last'>
+                                                        <div >
+                                                            <div >
+                                                                
+                                                                    <Paper style={{width:'170px'}}>
+                                                                        <Link to={`/podcaslist/${fav.id}`}>
+                                                                            {/* <p>{fav.podcast.title}</p> */}
+                                                                            <img src={fav.podcast.thumbnail} alt="logo" style={{width: "120px",height: "120px"}} />
+                                                                        </Link>
+                                                                        <IconButton aria-label="delete" onClick={() => handleDeleteFavPost(fav.podcast)}>
+                                                                            <DeleteIcon />
+                                                                        </IconButton>
+                                                                    </Paper>                                                              
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }) : <p>no userTexts yet</p>}  
+                                         </div>
+                                    
+                                    
+                                </div>
                                 
-                                    <div className='col order-last'>
-                                        <p> {fav.userText}</p>
-                                        <p>{index}</p>
-                                            <button onClick={() => handleDelete(fav.userText)}>delete</button>
-                                    </div>
-                    
-                                </div>
+                            </div>
                             
                             )
-                         }) : <p>no userTexts yet</p>}  
-                         </div>
-                        
-                         
-                         <div className='col'>
-                            <h3>Fav Episodes</h3>
-                         {favorite.data() ? favorite.data().favEpisodes.map((fav, index) => {
+                        }           
+                    }) : <h2>....Loading...</h2>}
+                </div>
 
-                            return (
-                            <div className='col order-last'>
-                                <div >
-                                    <div >
-                                        <p> {fav.audioFile}</p>
-                                        <p>{index}</p>
-                                            <button onClick={() => handleDeleteAudioFav(fav.audioFile)}>delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                            )
-                         }) : <p>no userTexts yet</p>}  
-                         </div>
-                        
-                         
-                        </div>
-                         
-                     </div>
-                 )
-                }           
-             }) : <h2>....Loading...</h2>}
-         </div>
-
-        </div>
-    )
-}
+            </div>
+        )
+    }
 
 export default UserProfile

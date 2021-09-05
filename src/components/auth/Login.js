@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/authContext';
 
 
@@ -44,6 +44,12 @@ const Login = () => {
 
     const [profile, setProfile] = useState({ email: "", password: ""})
     const {login} = useContext(AuthContext)
+
+    useEffect (() => {
+
+      setProfile({ email: "", password: ""})
+
+    }, [])
 
     const handleChange = (e) => {
         // console.log(`e`, e)

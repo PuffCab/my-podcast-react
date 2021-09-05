@@ -1,4 +1,5 @@
 import React from 'react';
+import { useContext } from 'react';
 import { Paper, Button, List } from '@material-ui/core' 
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
@@ -7,12 +8,27 @@ import Carousel from 'react-material-ui-carousel'
 import CheckBoxes from './CheckBoxes';
 
 import Podcast from './Podcast';
+import { UserProfileContext } from '../context/UserProfileContext';
+import { AuthContext } from "../context/authContext";
+
+// import { makeStyles } from '@material-ui/core/styles';
+// import Alert from '@material-ui/lab/Alert'; // REVIEW why not working?
+
 
 const PodcastList = ({curListDetails}) => {
+    
+
+    const {addFavPodcast} = useContext(UserProfileContext)
+    const {user} = useContext(AuthContext)
     
     
     const podcasts = curListDetails.podcasts
     console.log(`podcasts`, podcasts)
+
+
+    const handleAddFavPodcast = (podcastObj) => {
+        addFavPodcast(podcastObj)
+    }
 
     return (
         <div >
@@ -39,7 +55,15 @@ const PodcastList = ({curListDetails}) => {
                 {
                     podcasts && podcasts.map((item) =>{
                         return (
-                                <Podcast key={item.id} elements={item}/>                    )
+                                    <div>
+                                        <Podcast key={item.id} elements={item}/>
+                                        <button onClick={
+                                            user ? () => {handleAddFavPodcast(item)}
+                                                : () => alert ('Life ain´t easy ... Login first ')
+                                            }>addToFav</button>
+                                            {/* REVIEW preguntar lucas si es good practice llamar la funcion asi , o sino como evitar que se llame a la funcion en cada render */}
+                                    </div>               
+                                )
                     })}
                 </List>
             </div>

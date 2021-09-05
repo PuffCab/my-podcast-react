@@ -6,6 +6,8 @@ import {
 import Typography from '@material-ui/core/Typography';
 import {PodcastsContext} from "../context/PodcastsContext"
 import { UserProfileContext } from '../context/UserProfileContext'
+import { AuthContext } from '../context/authContext';
+
 
 // INICIO imports commented for material UI card player
 // import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -55,9 +57,10 @@ const Episodes = ({item}) => {
     // const item = props.item
     
     const {curListDetails, getData} = useContext(PodcastsContext)
-    console.log(`curListDetails`, curListDetails)
+    // console.log(`curListDetails`, curListDetails)
     
     const { addFavorite, deleteFavorite, addFavAudio } = useContext(UserProfileContext)
+    const { user } = useContext(AuthContext)
     
 
     let episodeTime = new Date(item.pub_date_ms).toLocaleDateString()
@@ -74,13 +77,18 @@ const Episodes = ({item}) => {
                 {item.title}&emsp;
                  Published: {episodeTime}
                 <div>
-                    <audio controls>
+                    <audio controls preload='none'>
                         
-                        <source src={item.audio} type="audio/mpeg"/>
+                        <source src={item.audio} type="audio/mpeg"  />
                         {/* <button onClick={() => handleDelete(fav.userText)}>delete</button> */}
                         
                     </audio> 
-                    <button onClick={() => handleAddFavorite(item.audio)}>Add to Fav</button>
+                    <button onClick={
+                        user ?
+                        () => handleAddFavorite(item.audio)
+                        : () => alert('no login no favorite')
+                        }
+                        >Add to Fav</button>
                 </div>
             </Typography>
         </div>

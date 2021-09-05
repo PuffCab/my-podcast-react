@@ -85,7 +85,7 @@ const PodcastInfo = ({podcastDetail}) => {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            <img className={classes.imageAvatar} src={podcastIcon_angle} />
+            <img className={classes.imageAvatar} src={podcastIcon_angle} alt='podcast' />
           </Avatar>
         }
         // action={

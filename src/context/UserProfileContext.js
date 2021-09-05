@@ -40,6 +40,7 @@ export const UserProfileContextProvider = ({children}) => {
     // }
     //FIN comentado para cambiar el metodo por arrayUnion
 
+    
     const addFavorite = (userText) => {
         // console.log(`user`, user.uid)
         // console.log(`userDescrip`, userDescription)
@@ -119,6 +120,27 @@ export const UserProfileContextProvider = ({children}) => {
     }
 
 
+    const addFavPodcast = (podcast) => {
+
+        const userRef = db.collection("userProfile").doc(user.uid);
+       
+        userRef.update({
+            favPodcast : firebaseapp.firestore.FieldValue.arrayUnion({
+                podcast
+                
+            }),
+            
+        })
+        .then(() => {
+            console.log("Podcast added to Favorites!");
+            getFavorites() //to update the list instantly
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });;
+    }
+
+
 
     //Delete from favorites
     // const deleteFavorite = (id) => {
@@ -167,11 +189,30 @@ export const UserProfileContextProvider = ({children}) => {
 
     }
 
+    const deleteFavPodcast = (podcast) => {  
+        const userRef = db.collection("userProfile").doc(user.uid);
+        
+        userRef.update({
+            favPodcast : firebaseapp.firestore.FieldValue.arrayRemove({
+                podcast
+            })
+        })
+        .then(() => {
+            console.log("Document successfully Deleted!");
+            getFavorites() //to update the list instantly
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });;
+
+    }
+
+
 
 
 
     return (
-        <UserProfileContext.Provider value={{favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite, deleteFavAudio}}>
+        <UserProfileContext.Provider value={{favorites, addFavorite,addFavAudio,addFavPodcast, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast}}>
             {children}
         </UserProfileContext.Provider>
     )
