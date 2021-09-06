@@ -26,7 +26,7 @@ function GoogleChatApp() {
     
     const [user] = useAuthState(auth);
 
-    // console.log(`USER`, user)
+    console.log(`USER`, user)
 
     return (
         <div className='googleChatBody'>

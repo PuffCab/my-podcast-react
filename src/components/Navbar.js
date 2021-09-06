@@ -1,6 +1,11 @@
 import {
     Link
   } from 'react-router-dom';
+  import {
+    Box,
+    Container,
+    Grid
+  } from "@material-ui/core";
 import { useHistory } from 'react-router';
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
@@ -36,6 +41,20 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  logoutButton : {
+    '& > *': {
+      margin: theme.spacing(0),
+    }
+  },
+  navBar : {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    margin: "4px"
+  },
+  backIcon: {
+    marginTop: "9px"
+  }
 }));
 
   
@@ -109,18 +128,19 @@ const useStyles = makeStyles((theme) => ({
     
       return (
         <div>
-        <p style={{display: 'flex'}}>
-          {user? `${user.displayName ? user.displayName : user.email}` : "Not logged in"}
-          {/* REVIEW right after registration, it shows email.After refresh, shows Displayname as supposed */}
-        </p>
-          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-            Open Menu
-          </Button>
-          <ArrowBackIcon onClick={handleGoBack}>Go Back</ArrowBackIcon>
-          <Link>
-            <GoogleSignOut/>
-          </Link>
-
+          <Box className={classes.navBar}>
+              <p style={{display: 'flex'}}>
+                {user? `${user.displayName ? user.displayName : user.email}` : "Not logged in"}
+                {/* REVIEW right after registration, it shows email.After refresh, shows Displayname as supposed */}
+              </p>
+              <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                Open Menu
+              </Button>
+              <ArrowBackIcon className={classes.backIcon} onClick={handleGoBack}>Go Back</ArrowBackIcon>
+              <Button className={classes.logoutButton} variant="contained">
+                <GoogleSignOut/>
+              </Button>
+          </Box>
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
