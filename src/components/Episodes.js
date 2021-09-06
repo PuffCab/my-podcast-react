@@ -56,10 +56,8 @@ const Episodes = ({item}) => {
     // const {id} = useParams()
     // const item = props.item
     
-    const {curListDetails, getData} = useContext(PodcastsContext)
-    // console.log(`curListDetails`, curListDetails)
     
-    const { addFavorite, deleteFavorite, addFavAudio } = useContext(UserProfileContext)
+    const { addFavAudio } = useContext(UserProfileContext)
     const { user } = useContext(AuthContext)
     
 
@@ -83,12 +81,9 @@ const Episodes = ({item}) => {
                         {/* <button onClick={() => handleDelete(fav.userText)}>delete</button> */}
                         
                     </audio> 
-                    <button onClick={
-                        user ?
-                        () => handleAddFavorite(item.audio)
-                        : () => alert('no login no favorite')
-                        }
-                        >Add to Fav</button>
+                    <button onClick={() => handleAddFavorite(item.audio)} style={ user ? {display: ''} : {display: 'none'}}>
+                        Add to Fav
+                    </button>
                 </div>
             </Typography>
         </div>

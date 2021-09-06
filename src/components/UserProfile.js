@@ -40,6 +40,7 @@ function UserProfile() {
     //TODO eliminar estas funcions cuando se cree boton favoritos en otro componente
     const handleOnchange = (e) => {
         setUserDescription(e.target.value)
+        
         // console.log(`e`, e.target.value)
     }
 
@@ -75,10 +76,10 @@ function UserProfile() {
                     <br />
 
                 <div  >
-                    <h3>User description</h3>
                     {/* write messages */}
                     <input type="text" placeholder='message' value={userDescription} onChange={handleOnchange} />
-                    <button onClick={handleAddFavorite}>write description</button>
+                    {/* REVIEW que aparezca en in value del input:[object Object],[object,Object] al volver atras */}
+                    <button onClick={handleAddFavorite}>write note</button>
                     {/* read messages */}  
                     
                     {favorites ? favorites.map((favorite, index) => {
@@ -90,7 +91,7 @@ function UserProfile() {
                                 <div className='container'>
                                     <div className='row'>
                                         <div className='col'>
-                                            <h5>Favorites Area</h5>
+                                            <h5>My own notes</h5>
                                             {/* <h6>{favorite.toData().timestamp.toDate().toLocaleString()}</h6> */}
                                             {favorite.data() ? favorite.data().userDescription.map((fav, index) => {
                                                 {console.log('FAVORITE', favorite.data())}
@@ -161,7 +162,7 @@ function UserProfile() {
                                                         </div>
                                                     </div>
                                                 )
-                                            }) : <p>no userTexts yet</p>}  
+                                            }) : <p>no Favorite Podcasts yet</p>}  
                                          </div>
                                     
                                     

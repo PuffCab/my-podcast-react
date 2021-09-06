@@ -124,13 +124,13 @@ const Register = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              {/* <Link href="#" variant="body2">
-                Forgot password?
-              </Link> */}
+              <Link href={'/login'} variant="body2">
+                Google Account? Just Sign in
+              </Link>
             </Grid>
             <Grid item>
               <Link href={'/login'} variant="body2" >
-                {"Already have an Account? Log In"}
+                {"Already have an Account? Login"}
               </Link>
             </Grid>
           </Grid>

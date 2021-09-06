@@ -1,6 +1,11 @@
 import React, {useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/authContext';
 
+import {
+  
+  Route
+} from 'react-router-dom';
+
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -16,6 +21,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import Container from '@material-ui/core/Container';
+
+import List from "../List"
+import { GoogleLogin } from '../GoogleChatApp'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -120,12 +128,16 @@ const Login = () => {
           <Grid container>
             <Grid item xs>
               {/* <Link href="#" variant="body2">
-                Forgot password?
+                Sign in with Google account
               </Link> */}
+              <Route to="#" variant="body2">
+                
+                <GoogleLogin/>
+              </Route>
             </Grid>
             <Grid item>
               <Link href={'/register'} variant="body2">
-                {"New in Town? Sign Up"}
+                New in Town? Sign Up
               </Link>
             </Grid>
           </Grid>

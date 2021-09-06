@@ -57,10 +57,14 @@ const PodcastList = ({curListDetails}) => {
                         return (
                                     <div>
                                         <Podcast key={item.id} elements={item}/>
-                                        <button onClick={
+                                        <button onClick={() => {handleAddFavPodcast(item)}} style={ user ? {display: ''} : {display: 'none'}}>
+                                            addToFav
+                                        </button>
+                                        
+                                        {/* <button onClick={
                                             user ? () => {handleAddFavPodcast(item)}
                                                 : () => alert ('Life ain´t easy ... Login first ')
-                                            }>addToFav</button>
+                                            }>addToFav</button> */}
                                             {/* REVIEW preguntar lucas si es good practice llamar la funcion asi , o sino como evitar que se llame a la funcion en cada render */}
                                     </div>               
                                 )

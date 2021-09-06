@@ -32,6 +32,7 @@ import GoogleChatApp from './components/GoogleChatApp';
 
 import UserProfile from './components/UserProfile';
 
+import NewProfilePage from './components/NewProfilePage'
 
 
 
@@ -65,8 +66,10 @@ function App() {
                 <ChatContextProvider>
                     <Switch>
                       <Route exact path='/'>
-                        <h1>Go to Curated Lists</h1>
-                        <img src={pocastIcon_square} alt="" />
+                        <div>
+                          <img src={pocastIcon_square} alt="" />
+                          <h3>...Go to our curated lists</h3>
+                        </div>
                       </Route>
                       <Route exact path='/curated'>
                           <List/>
@@ -93,6 +96,10 @@ function App() {
                       <Route>  
                       <PrivateRoute component={UserProfile} exact path ='/userProfile' />
                       </Route>
+                      <Route  exact path={`/fooProfile`}>
+                          <NewProfilePage/>
+                      </Route>
+                      {/* TODO delete newPrfile page after testing and import*/}
                   </Switch>
                 </ChatContextProvider>
               </PodcastsContextProvider>

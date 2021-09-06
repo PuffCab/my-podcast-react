@@ -37,7 +37,6 @@ const flexContainer = { display: 'flex', flexDirection: 'column' }
              <input type="text" placeholder='message' value={body} onChange={handleOnchange} />
              <button type='reset' onClick={handleWriteMessages}>write message</button>
              {/* read messages */}  
-             {/* REVIEW formato fecha. aparece 1.1.1970 */}
              {messages ? messages.map((message, index) => {
                  return (
                      <div>

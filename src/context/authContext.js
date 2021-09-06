@@ -30,10 +30,11 @@ export const AuthContextProvider = ({children}) => {
         db.collection("userProfile").doc(user.uid).set({
             // name : user.name,
             uid:user.uid,
+            photoURL:"",
             userDescription : [],
             timestamp: firebaseapp.firestore.FieldValue.serverTimestamp(),
             favEpisodes: [],
-            favPodcasts : []
+            favPodcast : []
                 
             
                 

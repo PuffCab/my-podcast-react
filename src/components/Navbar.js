@@ -5,20 +5,50 @@ import { useHistory } from 'react-router';
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 import { ThemeContext} from '../context/ThemeContext'
+import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+import { GoogleSignOut } from './GoogleChatApp'
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'rgb(61, 58, 58)'
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
   
  function Navbar() {
+
+    const classes = useStyles();
 
     const { user } = useContext(AuthContext)
     const {activeTheme, toggleTheme } = useContext(ThemeContext)
     const history = useHistory()
     const [modeBtn, setModeBtn] = React.useState('Enable')
 
-    console.log(`user`, user)
+    // console.log(`user`, user)
 
     // const handleClick = () => {
       
@@ -79,11 +109,18 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
     
       return (
         <div>
-        <p>{user? `${user?.displayName ?? ""} ${user.email}` : "Not logged in"}</p>
+        <p style={{display: 'flex'}}>
+          {user? `${user.displayName ? user.displayName : user.email}` : "Not logged in"}
+          {/* REVIEW right after registration, it shows email.After refresh, shows Displayname as supposed */}
+        </p>
           <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
             Open Menu
           </Button>
           <ArrowBackIcon onClick={handleGoBack}>Go Back</ArrowBackIcon>
+          <Link>
+            <GoogleSignOut/>
+          </Link>
+
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
@@ -92,32 +129,37 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
             onClose={handleClose}
           >
                 <MenuItem onClick={handleClose}>
-                    <Link to='/'>Home</Link>
+                    <Link to='/' className={classes.link}>Home</Link>
                 </MenuItem>
                 
                 <MenuItem onClick={handleClose}>
-                    <Link to='/curated'>Curated Lists</Link>
+                    <Link to='/curated' className={classes.link}>Curated Lists</Link>
                 </MenuItem>
                 
                 <MenuItem onClick={handleClose}>
-                    <Link to='/register'>New User Registration</Link>
+                    <Link to='/register' className={classes.link}>New User</Link>
                 </MenuItem>
 
                 <MenuItem onClick={handleClose}>
-                    <Link to='/login'>LogIn</Link>
+                    <Link to='/login' className={classes.link}>LogIn</Link>
                 </MenuItem>
 
                 <MenuItem onClick={handleClose}>
-                    <Link to='/chat'>Chat</Link>
+                    <Link to='/chat' className={classes.link}>Chat</Link>
                 </MenuItem>
                 
                 <MenuItem onClick={handleClose}>
-                   <Link to='/googlechat'>GoogleChat</Link>
+                   <Link to='/googlechat' className={classes.link}>GoogleChat</Link>
                 </MenuItem>
 
                 <MenuItem onClick={handleClose}>
-                    <Link to='/userProfile'>User Profile</Link>
+                    <Link to='/userProfile' className={classes.link}>User Profile</Link>
                 </MenuItem>
+
+                <MenuItem onClick={handleClose}>
+                    <Link to='/fooProfile'>FOO profile</Link>
+                </MenuItem>
+                {/* TODO delete Foo profile after testing...and component */}
 
           </Menu>
         </div>

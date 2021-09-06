@@ -31,8 +31,8 @@ function GoogleChatApp() {
     return (
         <div className='googleChatBody'>
             <header className='GoogleChatApp'>
-                <h1 className='GoogleChatApp'>GoogleChat</h1>
-                <GoogleSignOut/>
+                <h1 className='GoogleChatApp'>Chatroom</h1>
+                {/* <GoogleSignOut/> */}
             </header>
 
             <section className='GoogleChatApp'>
@@ -43,7 +43,7 @@ function GoogleChatApp() {
     )
 }
 
-function GoogleLogin() {
+export function GoogleLogin() {
 
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
@@ -56,7 +56,7 @@ function GoogleLogin() {
      )
  }
 
- function GoogleSignOut() {
+export  function GoogleSignOut() {
     //En el return decimos que si hay un User , nos cree un boton de signout 
     return auth.currentUser && (
         <button className="sign-btn" onClick={() => auth.signOut()}>Sign Out</button>
@@ -70,7 +70,7 @@ function GoogleLogin() {
     //hacemos una query, pedimos, los mensajes, los ordenamos y limitamos el numro a mostrar  (por practico para testar)
     const query = messagesRef.orderBy('createdAt').limit(50)
 
-    console.log(`QUERY`, messagesRef)
+    // console.log(`QUERY`, messagesRef)
     
     
 
@@ -88,6 +88,7 @@ function GoogleLogin() {
 
         //tomams el uid y foto del usuario actualmente logeado.
         const { uid, photoURL} = auth.currentUser
+        
 
         //para crear un nuevo msg en firestore llamamos a la coleccion, y pasamos un object con los campos que queremos que tenga
         await messagesRef.add({
