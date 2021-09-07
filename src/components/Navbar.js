@@ -176,11 +176,6 @@ const useStyles = makeStyles((theme) => ({
                     <Link to='/userProfile' className={classes.link}>User Profile</Link>
                 </MenuItem>
 
-                <MenuItem onClick={handleClose}>
-                    <Link to='/fooProfile'>FOO profile</Link>
-                </MenuItem>
-                {/* TODO delete Foo profile after testing...and component */}
-
           </Menu>
         </div>
       );

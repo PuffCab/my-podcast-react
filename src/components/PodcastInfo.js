@@ -23,7 +23,7 @@ import podcastIcon_angle from '../images/podcastIcon_angle.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: "auto",
     margin: "auto"
   },
   media: {
@@ -33,7 +33,12 @@ const useStyles = makeStyles((theme) => ({
     width: "auto",
     maxWidth: "200px", 
     maxHeight: "200px",
-    margin: "auto"
+    margin: "auto",
+    [theme.breakpoints.up(769)]: {
+      minWidth: 400,
+      minHeight: 400
+    }, 
+    // NOTE this way is implemented Mediaquery in MaterialUI
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -51,9 +56,14 @@ const useStyles = makeStyles((theme) => ({
   },
   imageAvatar : {
     
-      width: "60px",
-      height: "60px"
+      width: 60,
+      height: 60
   },
+  episodesContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end"
+  }
 }));
 
 
@@ -82,63 +92,63 @@ const PodcastInfo = ({podcastDetail}) => {
         //     <p>{podcastDetail.description}</p>
         // </div>
         <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            <img className={classes.imageAvatar} src={podcastIcon_angle} alt='podcast' />
-          </Avatar>
-        }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
-        title={podcastDetail.title}
-        subheader={lastEpisodeTime}
-      />
-      <CardMedia
-        className={classes.media}
-        image={podcastDetail.thumbnail}
-        title="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {podcastDetail.description}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-          style={{fontSize: "15px"}}
-        > last episodes
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-        {
-            podcastDetail && podcastDetail.episodes.map((item, id) => {
-                        
-                    return (
-                        
-                        <Episodes item={item} key={item.id}/>
-                    )
-                         
-                })}
-          
-        </CardContent>
-      </Collapse>
+          <CardHeader
+            avatar={
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                <img className={classes.imageAvatar} src={podcastIcon_angle} alt='podcast' />
+              </Avatar>
+            }
+            // action={
+            //   <IconButton aria-label="settings">
+            //     <MoreVertIcon />
+            //   </IconButton>
+            // }
+            title={podcastDetail.title}
+            subheader={lastEpisodeTime}
+          />
+          <CardMedia
+            className={classes.media}
+            image={podcastDetail.thumbnail}
+            title="Paella dish"
+          />
+          <CardContent>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {podcastDetail.description}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+              style={{fontSize: "15px"}}
+            > last episodes
+              <ExpandMoreIcon />
+            </IconButton>
+          </CardActions>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent className={classes.episodesContainer}>
+            {
+                podcastDetail && podcastDetail.episodes.map((item, id) => {
+                            
+                        return (
+                            
+                            <Episodes item={item} key={item.id}/>
+                        )
+                            
+                    })}
+              
+            </CardContent>
+          </Collapse>
     </Card>
 
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import '../googleChatStyle.css'
+import  { useContext} from 'react';
 
 // import firebase from "../config"
 //import firebase SDKs
@@ -12,6 +13,7 @@ import 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useState, useRef } from 'react';
+import { AuthContext } from '../context/authContext';
 
 
 //Initialize firebase
@@ -25,8 +27,9 @@ const auth = firebase.auth();
 function GoogleChatApp() {
     
     const [user] = useAuthState(auth);
+    
 
-    console.log(`USER`, user)
+    console.log(`USERGOOGLECHATAPPL32`, user)
 
     return (
         <div className='googleChatBody'>
@@ -44,10 +47,34 @@ function GoogleChatApp() {
 }
 
 export function GoogleLogin() {
+    const {addDocFavorite} = useContext(AuthContext)
+    // const user = firebase.auth().currentUser; //I don't need the user here
+    
 
     const signInWithGoogle = () => {
         const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider);
+        auth.signInWithPopup(provider)
+        .then((result) => {
+            
+            var credential = result.credential;
+        
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            // console.log(`GOOGLECHATAPP-L56-user`, user) //REVIEW why? User coming from Firebase?
+            addDocFavorite(user)
+            // ...
+          }).catch((error) => {
+            // Handle Errors here.
+            console.error("Error singinIn document: ", error);
+            
+          });
+
+
+        
+        
+        // console.log(`GOOGLECHATAPP-L58-user`, user)
     }
 
 

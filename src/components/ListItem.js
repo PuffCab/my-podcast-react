@@ -48,7 +48,7 @@ const ListItem = ({ curatedList }) => {
                 >
                 
                     <h3>{curatedList.title}</h3>
-                    <p>Number of Podcasts: {curatedList.total}</p>
+                    <p>- {curatedList.total} Podcasts -</p>
                 
             </Link>        
                 <IconButton

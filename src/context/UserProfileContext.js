@@ -75,7 +75,7 @@ export const UserProfileContextProvider = ({children}) => {
         // console.log(`user`, user.uid)
         // console.log(`userDescrip`, userDescription)
 
-        const userRef = db.collection("userProfile").doc(user.uid);
+        const userRef = db.collection("userProfile").doc(user?.uid);
         //userDisplayName   
         //UID
         //timeStamp

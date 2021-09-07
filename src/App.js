@@ -32,7 +32,7 @@ import GoogleChatApp from './components/GoogleChatApp';
 
 import UserProfile from './components/UserProfile';
 
-import NewProfilePage from './components/NewProfilePage'
+
 
 
 
@@ -96,10 +96,6 @@ function App() {
                       <Route>  
                       <PrivateRoute component={UserProfile} exact path ='/userProfile' />
                       </Route>
-                      <Route  exact path={`/fooProfile`}>
-                          <NewProfilePage/>
-                      </Route>
-                      {/* TODO delete newPrfile page after testing and import*/}
                   </Switch>
                 </ChatContextProvider>
               </PodcastsContextProvider>

@@ -14,7 +14,7 @@ return (
                   {/* <Link>   */}
                     <Paper>
                        {/* <ListItem key={item.id} curatedList={item} /> */}
-                       <img src={elements.thumbnail} alt="logo" />
+                       <img src={elements.thumbnail} alt="logo" style={{width: "100%"}} />
                     </Paper>
                </Link>
 

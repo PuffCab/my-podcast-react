@@ -55,8 +55,8 @@ export const AuthContextProvider = ({children}) => {
               // User is signed in, see docs for a list of available properties
               // https://firebase.google.com/docs/reference/js/firebase.User
               var uid = user.uid;
-              console.log(`user`, uid)
-              console.log(`usercredential`, uid)
+              console.log(`AUTHCONTEXT-L58-userUID`, uid)
+              console.log(`AUTHCONTEXT-L59-usercredential`, uid)
                 setUser(user) //esto nos mantiene logeados cuando refrescamos pagina
 
             } else {
@@ -120,7 +120,7 @@ export const AuthContextProvider = ({children}) => {
 
     return (
 
-        <AuthContext.Provider value={{user,  register, login }}>
+        <AuthContext.Provider value={{user,  register, login, addDocFavorite }}>
             {children}
         </AuthContext.Provider>
 

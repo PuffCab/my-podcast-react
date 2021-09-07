@@ -53,7 +53,7 @@ const List = () => {
               margin: "10px",
               borderRadius: "5px",
               color: "white",
-              backgroundColor: "black",
+              backgroundColor: "rgb(43, 41, 41)",
             }}
           >
             <ListItem

@@ -11,11 +11,16 @@ import Podcast from './Podcast';
 import { UserProfileContext } from '../context/UserProfileContext';
 import { AuthContext } from "../context/authContext";
 
-// import { makeStyles } from '@material-ui/core/styles';
+import './styles/podcastListStyle.css'
+import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
+import IconButton from '@material-ui/core/IconButton';
 // import Alert from '@material-ui/lab/Alert'; // REVIEW why not working?
 
 
+
+
 const PodcastList = ({curListDetails}) => {
+    
     
 
     const {addFavPodcast} = useContext(UserProfileContext)
@@ -32,11 +37,12 @@ const PodcastList = ({curListDetails}) => {
 
     return (
         <div >
-            <Paper>
+            {/* <Paper>
                 <CheckBoxes/>
-            </Paper>
-           <h2>{curListDetails.title}</h2> 
-             <p>Number of Podcasts: {curListDetails.total}</p>
+            </Paper> */}
+            <hr />
+           <h2>{curListDetails.title}</h2>   
+             <p>We selected {curListDetails.total} Podcasts for you</p>
              <hr/>
              <p>{curListDetails.description}</p>
              <hr/>
@@ -56,11 +62,12 @@ const PodcastList = ({curListDetails}) => {
                     podcasts && podcasts.map((item) =>{
                         return (
                                     <div>
-                                        <Podcast key={item.id} elements={item}/>
-                                        <button onClick={() => {handleAddFavPodcast(item)}} style={ user ? {display: ''} : {display: 'none'}}>
-                                            addToFav
-                                        </button>
-                                        
+                                        <div className="containerPodcastList">
+                                            <Podcast key={item.id} elements={item}/>
+                                            <IconButton className="btnPodcastList" onClick={() => {handleAddFavPodcast(item)}} style={ user ? {display: ''} : {display: 'none'}}>
+                                                <FavoriteIcon/>
+                                            </IconButton>
+                                        </div>
                                         {/* <button onClick={
                                             user ? () => {handleAddFavPodcast(item)}
                                                 : () => alert ('Life ain´t easy ... Login first ')

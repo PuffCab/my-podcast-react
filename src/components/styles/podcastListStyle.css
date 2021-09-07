@@ -1,0 +1,32 @@
+.containerPodcastList {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding: 2%;
+  }
+  
+  .containerPodcastList img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .containerPodcastList .btnPodcastList {
+    position: absolute;
+    top: 93%;
+    left: 93%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: whitesmoke;
+    color: white;
+    font-size: 16px;
+    padding: 0px 0px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .containerPodcastList .btnPodcastList:hover {
+    background-color: rgba(207, 200, 200, 0.678);
+    color: rgb(43, 41, 41)
+  }
