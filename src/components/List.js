@@ -45,7 +45,7 @@ const List = () => {
   //   console.log(data);
   // }, []);
   //SECTION END block code for Local fetch
-
+  console.log(`DATA`, data)
   return (
     <div>
       {data &&

@@ -26,7 +26,7 @@ const PodcastList = ({curListDetails}) => {
     
     
     const podcasts = curListDetails.podcasts
-    console.log(`podcasts`, podcasts)
+    console.log(`podcasts`, podcasts[0].id)
 
 
     const handleAddFavPodcast = (podcastObj) => {
