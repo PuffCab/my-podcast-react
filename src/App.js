@@ -16,7 +16,7 @@ import {
 } from 'react-router-dom';
 import PodcastDetail from './components/PodcastDetail'
 
-import pocastIcon_square from './images/podcastIcon_square.png'
+
  
 import {PodcastsContextProvider} from './context/PodcastsContext'
 import Register from './components/auth/Register';
@@ -26,11 +26,12 @@ import { ThemeProvider } from './context/ThemeContext';
 import { ChatContextProvider } from './context/chatContext';
 import { UserProfileContextProvider } from './context/UserProfileContext';
 import Navbar from './components/Navbar';
-import ChatRoom from './components/ChatRoom';
+// import ChatRoom from './components/ChatRoom'; //TODO eliminar import chatroom si funciona todo
 
 import GoogleChatApp from './components/GoogleChatApp';
 
 import UserProfile from './components/UserProfile';
+import Home from './components/Home';
 
 
 
@@ -66,14 +67,12 @@ function App() {
                 <ChatContextProvider>
                     <Switch>
                       <Route exact path='/'>
-                        <div>
-                          <img src={pocastIcon_square} alt="" />
-                          <h3>...Go to our curated lists</h3>
-                        </div>
+                        <Home/>
                       </Route>
                       <Route exact path='/curated'>
                           <List/>
                       </Route>
+                      
                       <Route exact path='/curated/:id'>
                           <ListDetails/>
                       </Route>
@@ -89,7 +88,7 @@ function App() {
                       <Route  exact path={`/login`}>
                           <Login/>
                       </Route>
-                      <PrivateRoute component={ChatRoom} exact path ='/chat' />
+                      {/* <PrivateRoute component={ChatRoom} exact path ='/chat' />  TODO  eliminar ruta si todo funciona y crear otra para chat*/}
                       <Route  exact path={`/googlechat`}>
                           <GoogleChatApp/>
                       </Route>

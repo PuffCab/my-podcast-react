@@ -46,14 +46,7 @@ export const UserProfileContextProvider = ({children}) => {
         // console.log(`userDescrip`, userDescription)
 
         const userRef = db.collection("userProfile").doc(user.uid);
-        //userDisplayName   
-        //UID
-        //timeStamp
-        //UserDescription
-        //item.audio
-        //item.title
-        //podcastDetail.thumbnail
-        //PodcastDetail.title
+        
         userRef.update({
             userDescription : firebaseapp.firestore.FieldValue.arrayUnion({
                 userText
@@ -76,14 +69,6 @@ export const UserProfileContextProvider = ({children}) => {
         // console.log(`userDescrip`, userDescription)
 
         const userRef = db.collection("userProfile").doc(user?.uid);
-        //userDisplayName   
-        //UID
-        //timeStamp
-        //UserDescription
-        //item.audio
-        //item.title
-        //podcastDetail.thumbnail
-        //PodcastDetail.title
         userRef.update({
             favEpisodes : firebaseapp.firestore.FieldValue.arrayUnion({
                 audioFile

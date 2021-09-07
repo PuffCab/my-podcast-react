@@ -18,15 +18,6 @@ export const AuthContextProvider = ({children}) => {
     const addDocFavorite = (user) => {
         // console.log(`user`, user.uid)
 
-        // console.log(`userDescrip`, userDescription)
-        //userDisplayName   
-        //UID
-        //timeStamp
-        //UserDescription
-        //item.audio
-        //item.title
-        //podcastDetail.thumbnail
-        //PodcastDetail.title
         db.collection("userProfile").doc(user.uid).set({
             // name : user.name,
             uid:user.uid,
@@ -35,9 +26,6 @@ export const AuthContextProvider = ({children}) => {
             timestamp: firebaseapp.firestore.FieldValue.serverTimestamp(),
             favEpisodes: [],
             favPodcast : []
-                
-            
-                
         })
         .then(() => {
             console.log("Document successfully written!");

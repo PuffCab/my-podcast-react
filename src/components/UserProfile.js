@@ -115,20 +115,7 @@ const useStyles = makeStyles((theme) => ({
 ////////////////////////////////////
 
 
-
-
-
-
-
-
-
-
-
-
 const flexContainer = { display: 'flex', flexDirection: 'column' }
-
-
-
 
 function UserProfile() {
     
@@ -140,7 +127,6 @@ function UserProfile() {
     const profilePic = user.photoURL 
     
     ///////////////////////////
-
 
 
     // const { user } = useContext(AuthContext) //REVIEW  why??con el user del AuthContext, al hacer console de user.photoURL sale undefined.

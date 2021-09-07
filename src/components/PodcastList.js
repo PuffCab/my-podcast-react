@@ -20,8 +20,6 @@ import IconButton from '@material-ui/core/IconButton';
 
 
 const PodcastList = ({curListDetails}) => {
-    
-    
 
     const {addFavPodcast} = useContext(UserProfileContext)
     const {user} = useContext(AuthContext)
@@ -55,7 +53,7 @@ const PodcastList = ({curListDetails}) => {
                     return (
                             <Podcast key={item.id} elements={item}/>                    )
                 })}
-             </Carousel> */}
+             </Carousel> REVIEW carrousel edited. List view prefered */}
              <div className='pocast-list'>
                 <List >
                 {

@@ -164,9 +164,9 @@ const useStyles = makeStyles((theme) => ({
                     <Link to='/login' className={classes.link}>LogIn</Link>
                 </MenuItem>
 
-                <MenuItem onClick={handleClose}>
+                {/* <MenuItem onClick={handleClose}>
                     <Link to='/chat' className={classes.link}>Chat</Link>
-                </MenuItem>
+                </MenuItem> TODO eliminar menu item si todo funciiona */}
                 
                 <MenuItem onClick={handleClose}>
                    <Link to='/googlechat' className={classes.link}>GoogleChat</Link>
