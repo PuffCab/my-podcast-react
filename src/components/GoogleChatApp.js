@@ -1,6 +1,7 @@
 import React from 'react'
 import '../googleChatStyle.css'
 import  { useContext} from 'react';
+import Button from '@material-ui/core/Button';
 
 // import firebase from "../config"
 //import firebase SDKs
@@ -79,14 +80,14 @@ export function GoogleLogin() {
 
 
      return (
-         <button className="sign-btn" onClick={signInWithGoogle}>Sing in with Google</button>
+         <Button className="sign-btn" onClick={signInWithGoogle}>Sing in with Google</Button>
      )
  }
 
 export  function GoogleSignOut() {
     //En el return decimos que si hay un User , nos cree un boton de signout 
     return auth.currentUser && (
-        <button className="sign-btn" onClick={() => auth.signOut()}>Sign Out</button>
+        <Button className="sign-btn" size='small' variant="contained" onClick={() => auth.signOut()}>Sign Out</Button>
      )
  }
 

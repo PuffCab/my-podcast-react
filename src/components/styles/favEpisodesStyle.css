@@ -1,0 +1,40 @@
+.containerEpisodes {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding: 2%;
+  }
+  
+  /* .containerEpisodes img {
+    width: 100%;
+    height: auto;
+  } */
+  
+  .containerEpisodes .btnEpisodes {
+    position: absolute;
+    top: 24%;
+    left: 93%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: whitesmoke;
+    color: white;
+    font-size: 16px;
+    padding: 0px 0px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .containerEpisodes .btnEpisodes:hover {
+    background-color: rgba(207, 200, 200, 0.678);
+    color: rgb(43, 41, 41)
+  }
+
+
+  .col .order-last {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }

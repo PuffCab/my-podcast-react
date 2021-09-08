@@ -90,8 +90,9 @@ function App() {
                       </Route>
                       {/* <PrivateRoute component={ChatRoom} exact path ='/chat' />  TODO  eliminar ruta si todo funciona y crear otra para chat*/}
                       <Route  exact path={`/googlechat`}>
-                          <GoogleChatApp/>
+                          <GoogleChatApp/> 
                       </Route>
+                      {/* REVIEW private route no funciona con google chat, y tambien estropea la del userprofile */}
                       <Route>  
                       <PrivateRoute component={UserProfile} exact path ='/userProfile' />
                       </Route>

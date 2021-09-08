@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel'
 // import CarouselItem from './CarouselItem'
-import CheckBoxes from './CheckBoxes';
+// import CheckBoxes from './CheckBoxes';
 
 import Podcast from './Podcast';
 import { UserProfileContext } from '../context/UserProfileContext';
@@ -26,7 +26,7 @@ const PodcastList = ({curListDetails}) => {
     
     
     const podcasts = curListDetails.podcasts
-    console.log(`podcasts`, podcasts[0].id)
+    console.log(`podcasts`, podcasts)
 
 
     const handleAddFavPodcast = (podcastObj) => {

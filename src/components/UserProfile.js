@@ -27,59 +27,26 @@ import {
   import firebase from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth';
+
 ////////////////////////////////
+
+/////nuevoSTYLE de FAvEpisodes//////////////////
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import './styles/favEpisodesStyle.css'
+/////FINnuevoSTYLE de FAvEpisodes///////////////
 
 
 /////////////////////////////////////
 
 const useStyles = makeStyles((theme) => ({
-    heading: {
-      display: "flex",
-      marginTop: "5%",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    profileCard: {
-      backgroundColor: theme.palette.secondary.light,
-      borderRadius: 25,
-    },
-    profileInformation: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "right",
-      marginRight: "8%",
-      marginTop: "5%",
-      marginBottom: "5%",
-    },
-    profileName: {
-      display: "flex",
-      marginRight: "0%",
-      paddingBottom: "15%",
-      alignItems: "center",
-    },
-    pictureDiv: {
-      display: "flex",
-    },
-    profilePicture: {
-      width: theme.spacing(8),
-      height: theme.spacing(8),
-      border: 2,
-      borderColor: theme.palette.primary.main,
-    },
+    
     upload: {
       display: "flex",
       alignItems: "end",
       marginLeft: "2%",
     },
-    logoPosition: {
-      display: "flex",
-      justifyContent: "center",
-    },
-    logo: {
-      width: theme.spacing(10),
-      height: theme.spacing(10),
-    },
+    
     favoriteContainer: {
       display: "flex",
       width: "100%",
@@ -87,12 +54,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       justifyContent: "center",
     },
-    favoriteRecipes: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      marginBottom: "20%",
-    },
+   
     signOutButton: {
       display: "flex",
       justifyContent: "center",
@@ -106,8 +68,37 @@ const useStyles = makeStyles((theme) => ({
     favBox : {
         display: "grid",
         justifyItems: "center",
+        margin : 8
 
-    }
+    },
+
+    root: {
+        display: 'flex',
+        margin: 4
+      },
+    details: {
+        display: 'flex',
+        flexDirection: 'column',
+      },
+    content: {
+        flex: '1 0 auto',
+      },
+    podcastImage: {
+        width: 77,
+        height: 77
+      },
+
+    cardTitle: {
+          fontSize: "12px",
+        },
+    cardSubTitle: {
+        fontSize: "10px",
+        },
+    audioBar: {
+            width: 253,
+            height: 30
+        }
+
   }));
 
   const db = firebase.firestore();
@@ -115,18 +106,18 @@ const useStyles = makeStyles((theme) => ({
 ////////////////////////////////////
 
 
-const flexContainer = { display: 'flex', flexDirection: 'column' }
 
 function UserProfile() {
     
 
     ////////////////////////
     const classes = useStyles();
-    let history = useHistory();
+    let history = useHistory();  //TODO implementar push.History para que lleve a la pagina de la que venimos al hacer login.
     const [user] = useAuthState(auth);
     const profilePic = user.photoURL 
     
     ///////////////////////////
+
 
 
     // const { user } = useContext(AuthContext) //REVIEW  why??con el user del AuthContext, al hacer console de user.photoURL sale undefined.
@@ -171,8 +162,8 @@ function UserProfile() {
         
     }
     
-    const handleDeleteAudioFav = (deleteAudioFav) => { 
-        deleteFavAudio(deleteAudioFav)
+    const handleDeleteAudioFav = (deleteAudioFav, deleteFavTitle) => { 
+        deleteFavAudio(deleteAudioFav, deleteFavTitle)
     }
 
     const handleDeleteFavPost = (podcast) => { 
@@ -193,11 +184,6 @@ function UserProfile() {
                     <Avatar src={profilePic} alt="profile"  className={classes.Avatar}/>
                 </Box>
                 <div  >
-                    {/* write messages */}
-                    <input type="text" placeholder='message' value={userDescription} onChange={handleOnchange} />
-                    {/* REVIEW que aparezca en in value del input:[object Object],[object,Object] al volver atras */}
-                    <Button onClick={handleAddFavorite} variant="outlined" color="red">write note</Button>
-                    {/* read messages */}  
                     
                     {favorites ? favorites.map((favorite, index) => {
                         {/* {console.log("this is favorites", favorites)} */}
@@ -208,8 +194,13 @@ function UserProfile() {
                                 <div className='container'>
                                     <div className='row'>
                                         <div className='col'>
-                                            <Box className={classes.favBox} border={2} boxShadow={2} borderRadius={10} borderColor="rgba(112, 109, 109, 0.712)">
-                                                <h5>My own notes</h5>
+                                            <Box className={classes.favBox} border={2} boxShadow={2} borderRadius={60} borderColor="rgba(112, 109, 109, 0.712)">
+                                                <h5>My notes</h5>
+                                                <Box>
+                                                    <input type="text" placeholder='message' value={userDescription} onChange={handleOnchange} />
+                                                    {/* REVIEW que aparezca en in value del input:[object Object],[object,Object] al volver atras */}
+                                                    <Button onClick={handleAddFavorite} variant="outlined" color="red" size="small">write note</Button>
+                                                </Box>
                                                 {/* <h6>{favorite.toData().timestamp.toDate().toLocaleString()}</h6> */}
                                                 {favorite.data() ? favorite.data().userDescription.map((fav, index) => {
                                                     {console.log('FAVORITE', favorite.data())}
@@ -220,7 +211,6 @@ function UserProfile() {
                                                         
                                                             <div className='col order-last'>
                                                                 <p> {fav.userText}</p>
-                                                                <p>{index}</p>
                                                                 <IconButton aria-label="delete" onClick={() => handleDelete(fav.userText)}>
                                                                     <DeleteIcon />
                                                                 </IconButton>
@@ -242,19 +232,41 @@ function UserProfile() {
 
                                                     return (
                                                         <div className='col order-last'>
-                                                            <div >
-                                                                <div >
-                                                                    <p>{index}</p>
-                                                                    <audio controls preload='none'>                    
-                                                                        <source src={fav.audioFile} type="audio/mpeg" preload='none' />
-                                                                        Audio file is not supported                      
-                                                                    </audio>
-                                                                    <IconButton aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audioFile)}>
+                                                            <div className="containerEpisodes">  
+                                                                <Card className={classes.root}>
+                                                                    <div className={classes.details}>
+                                                                        <CardContent className={classes.content}>
+                                                                        <Typography 
+                                                                            className={classes.cardTitle} 
+                                                                            component="h7" variant="h7">
+                                                                            {fav.episodeTitle}
+                                                                        </Typography>
+                                                                        <Typography 
+                                                                            className={classes.cardSubTitle} 
+                                                                            variant="subtitle1" 
+                                                                            color="textSecondary">
+                                                                            {/* Mac Miller */}
+                                                                        </Typography>
+                                                                        </CardContent>
+                                                                        <div className={classes.controls}>
+                                                                        <audio className={classes.audioBar} controls preload='none'>
+                                                                                        
+                                                                            <source src={fav.audioFile} type="audio/mpeg"  />
+                                                                        </audio> 
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                                    {/* <CardMedia
+                                                                        className={classes.podcastImage}
+                                                                        image={fav.thumbnail}
+                                                                        title="Podcast picture" 
+                                                                    /> */}
+                                                                    <IconButton className="btnEpisodes" aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audioFile, fav.episodeTitle)}>
                                                                         <DeleteIcon />
                                                                     </IconButton>
-                                                                        
-                                                                </div>
-                                                            </div>
+                    
+                                                                </Card>
+                                                            </div> 
                                                         </div>
                                                     )
                                                 }) : <p>no userTexts yet</p>}
@@ -262,7 +274,7 @@ function UserProfile() {
                                          </div>
 
                                          <div className='col'>
-                                            <Box className={classes.favBox} border={2} boxShadow={2} borderRadius={10} borderColor="rgba(112, 109, 109, 0.712)">
+                                            <Box className={classes.favBox} border={2} boxShadow={2} borderRadius={60} borderColor="rgba(112, 109, 109, 0.712)">
                                                 <h5>Fav Podcast</h5>
                                                 {favorite.data() ? favorite.data().favPodcast.map((fav, index) => {
 

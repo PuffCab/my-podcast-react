@@ -73,8 +73,8 @@ const Episodes = ({item}) => {
 
     let episodeTime = new Date(item.pub_date_ms).toLocaleDateString()
 
-    const handleAddFavorite = (audio) => {
-        addFavAudio(audio)
+    const handleAddFavorite = (audio, title) => {
+        addFavAudio(audio, title)
         
     
     }
@@ -117,7 +117,7 @@ const Episodes = ({item}) => {
                     className={classes.cardSubTitle} 
                     variant="subtitle1" 
                     color="textSecondary">
-                    Mac Miller
+                    Published on {episodeTime}
                 </Typography>
                 </CardContent>
                 <div className={classes.controls}>
@@ -133,7 +133,7 @@ const Episodes = ({item}) => {
                 image={item.thumbnail}
                 title="Podcast picture" 
             />
-            <IconButton className="btnEpisodes" onClick={() => handleAddFavorite(item.audio)} style={ user ? {display: ''} : {display: 'none'}}>
+            <IconButton className="btnEpisodes" onClick={() => handleAddFavorite(item.audio, item.title)} style={ user ? {display: ''} : {display: 'none'}}>
                 <FavoriteIcon/>
             </IconButton>
             

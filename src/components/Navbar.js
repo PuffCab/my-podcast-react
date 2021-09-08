@@ -17,6 +17,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+
 import { GoogleSignOut } from './GoogleChatApp'
 
 const useStyles = makeStyles((theme) => ({
@@ -137,9 +138,9 @@ const useStyles = makeStyles((theme) => ({
                 Open Menu
               </Button>
               <ArrowBackIcon className={classes.backIcon} onClick={handleGoBack}>Go Back</ArrowBackIcon>
-              <Button className={classes.logoutButton} variant="contained">
+              <div>
                 <GoogleSignOut/>
-              </Button>
+              </div>
           </Box>
           <Menu
             id="simple-menu"
@@ -169,7 +170,7 @@ const useStyles = makeStyles((theme) => ({
                 </MenuItem> TODO eliminar menu item si todo funciiona */}
                 
                 <MenuItem onClick={handleClose}>
-                   <Link to='/googlechat' className={classes.link}>GoogleChat</Link>
+                   <Link to='/googlechat' className={classes.link}>Chatroom</Link>
                 </MenuItem>
 
                 <MenuItem onClick={handleClose}>

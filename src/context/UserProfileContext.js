@@ -64,15 +64,16 @@ export const UserProfileContextProvider = ({children}) => {
     }
 
 
-    const addFavAudio = (audioFile) => {
+    const addFavAudio = (audioFile, episodeTitle) => {
         // console.log(`user`, user.uid)
         // console.log(`userDescrip`, userDescription)
 
         const userRef = db.collection("userProfile").doc(user?.uid);
+
         userRef.update({
             favEpisodes : firebaseapp.firestore.FieldValue.arrayUnion({
-                audioFile
-                
+                audioFile,
+                episodeTitle
             }),
             
         })
@@ -156,12 +157,13 @@ export const UserProfileContextProvider = ({children}) => {
     }
 
 
-    const deleteFavAudio = (audioFile) => {  
+    const deleteFavAudio = (audioFile, episodeTitle) => {  
         const userRef = db.collection("userProfile").doc(user.uid);
         
         userRef.update({
             favEpisodes : firebaseapp.firestore.FieldValue.arrayRemove({
-                audioFile
+                audioFile,
+                episodeTitle
             })
         })
         .then(() => {

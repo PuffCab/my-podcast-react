@@ -23,7 +23,7 @@ const ListDetails = () => {
     // console.log(`object`, obj )
 
     var myHeaders = new Headers();
-    myHeaders.append("X-ListenAPI-Key", "3f0625c2f3eb4f8eae96a0293645a931");
+    myHeaders.append("X-ListenAPI-Key", process.env.REACT_APP_LISTENNOTES_API_KEY);
 
     var requestOptions = {
         method: 'GET',
@@ -44,7 +44,7 @@ const ListDetails = () => {
       
     };
     getCuratedList();
-    ;
+    // getData();
   }, []);
 
   // useEffect(() => {
