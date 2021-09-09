@@ -41,7 +41,7 @@ const ListItem = ({ curatedList }) => {
     ////FIN constants for Show description Button
 
     return (
-            <div>
+            <div style={{padding: "13px 13px 0 13px"}}>
             <Link
                 to={`/curated/${curatedList.id}`}
                 style={{ textDecoration: "none", color: "white" }}

@@ -95,9 +95,19 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "10px",
         },
     audioBar: {
-            width: 253,
+            width: 200,
             height: 30
-        }
+        },
+        episodeThumbnail : {
+            objectFit: "contain",
+            width: "100%",
+            height: "100%"
+          },
+          userText : {
+              marginTop: 0,
+              marginBottom: 0
+
+          }
 
   }));
 
@@ -131,7 +141,7 @@ function UserProfile() {
     useEffect(() => {
         
         getFavorites()
-        console.log(`favorites`, favorites)
+        // console.log(`favorites`, favorites)
         // setUserDescription(favorites)
     }, [])
     
@@ -152,7 +162,7 @@ function UserProfile() {
         addFavorite(userDescription)
         
         setUserDescription('')
-        console.log(`userDescrip`, userDescription)
+        // console.log(`userDescrip`, userDescription)
     }
     //FIN eliminar estas funciones //////////////////////
     
@@ -210,7 +220,7 @@ function UserProfile() {
                                                         <div >
                                                         
                                                             <div className='col order-last'>
-                                                                <p> {fav.userText}</p>
+                                                                <p className={classes.userText}> {fav.userText}</p>
                                                                 <IconButton aria-label="delete" onClick={() => handleDelete(fav.userText)}>
                                                                     <DeleteIcon />
                                                                 </IconButton>
@@ -232,7 +242,8 @@ function UserProfile() {
 
                                                     return (
                                                         <div className='col order-last'>
-                                                            <div className="containerFavEpisodes">  
+                                                            
+                                                            <div className="containerEpisodes">
                                                                 <Card className={classes.root}>
                                                                     <div className={classes.details}>
                                                                         <CardContent className={classes.content}>
@@ -241,30 +252,31 @@ function UserProfile() {
                                                                             component="h7" variant="h7">
                                                                             {fav.episodeTitle}
                                                                         </Typography>
-                                                                        <Typography 
+                                                                        {/* <Typography 
                                                                             className={classes.cardSubTitle} 
                                                                             variant="subtitle1" 
                                                                             color="textSecondary">
-                                                                            {/* Mac Miller */}
-                                                                        </Typography>
+                                                                            Published on {episodeTime}
+                                                                        </Typography> */}
                                                                         </CardContent>
                                                                         <div className={classes.controls}>
                                                                         <audio className={classes.audioBar} controls preload='none'>
                                                                                         
-                                                                            <source src={fav.audioFile} type="audio/mpeg"  />
+                                                                            <source src={fav.audio} type="audio/mpeg"  />
                                                                         </audio> 
                                                                         </div>
                                                                     </div>
-                                                                
-                                                                    {/* <CardMedia
+                                                                    <div>
+                                                                    <CardMedia
                                                                         className={classes.podcastImage}
-                                                                        image={fav.thumbnail}
-                                                                        title="Podcast picture" 
-                                                                    /> */}
-                                                                    <IconButton className="btnFavEpisodes" aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audioFile, fav.episodeTitle)}>
+                                                                        
+                                                                    >
+                                                                    <img className={classes.episodeThumbnail} src={fav.episodeThumbnail} alt="Podcast thumbnail"/>
+                                                                    </CardMedia>
+                                                                    <IconButton className="btnEpisodes" aria-label="delete" onClick={() => handleDeleteFavPost(fav.podcast)}>
                                                                         <DeleteIcon />
                                                                     </IconButton>
-                    
+                                                                    </div>
                                                                 </Card>
                                                             </div> 
                                                         </div>

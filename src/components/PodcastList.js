@@ -39,7 +39,7 @@ const PodcastList = ({curListDetails}) => {
                 <CheckBoxes/>
             </Paper> */}
             <hr />
-           <h2>{curListDetails.title}</h2>   
+           <h2 style={{margin: 10}}>{curListDetails.title}</h2>   
              <p>We've selected {curListDetails.total} Podcasts for you</p>
              <hr/>
              <p>{curListDetails.description}</p>

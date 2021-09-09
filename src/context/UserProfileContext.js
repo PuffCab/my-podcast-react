@@ -64,7 +64,7 @@ export const UserProfileContextProvider = ({children}) => {
     }
 
 
-    const addFavAudio = (audioFile, episodeTitle) => {
+    const addFavAudio = (audioFile, episodeTitle, episodeThumbnail) => {
         // console.log(`user`, user.uid)
         // console.log(`userDescrip`, userDescription)
 
@@ -73,7 +73,8 @@ export const UserProfileContextProvider = ({children}) => {
         userRef.update({
             favEpisodes : firebaseapp.firestore.FieldValue.arrayUnion({
                 audioFile,
-                episodeTitle
+                episodeTitle,
+                episodeThumbnail
             }),
             
         })
