@@ -232,7 +232,7 @@ function UserProfile() {
 
                                                     return (
                                                         <div className='col order-last'>
-                                                            <div className="containerEpisodes">  
+                                                            <div className="containerFavEpisodes">  
                                                                 <Card className={classes.root}>
                                                                     <div className={classes.details}>
                                                                         <CardContent className={classes.content}>
@@ -261,7 +261,7 @@ function UserProfile() {
                                                                         image={fav.thumbnail}
                                                                         title="Podcast picture" 
                                                                     /> */}
-                                                                    <IconButton className="btnEpisodes" aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audioFile, fav.episodeTitle)}>
+                                                                    <IconButton className="btnFavEpisodes" aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audioFile, fav.episodeTitle)}>
                                                                         <DeleteIcon />
                                                                     </IconButton>
                     

@@ -37,9 +37,13 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flex: '1 0 auto',
   },
-  podcastImage: {
-    width: 77,
-    height: 77
+  // podcastImage: {
+    
+  // },
+  episodeThumbnail : {
+    objectFit: "contain",
+    width: "100%",
+    height: "100%"
   },
   playIcon: {
     height: 38,
@@ -127,16 +131,17 @@ const Episodes = ({item}) => {
                 </audio> 
                 </div>
             </div>
-        
-            <CardMedia
-                className={classes.podcastImage}
-                image={item.thumbnail}
-                title="Podcast picture" 
-            />
-            <IconButton className="btnEpisodes" onClick={() => handleAddFavorite(item.audio, item.title)} style={ user ? {display: ''} : {display: 'none'}}>
-                <FavoriteIcon/>
-            </IconButton>
-            
+            <div>
+              <CardMedia
+                  className={classes.podcastImage}
+                  
+              >
+              <img className={classes.episodeThumbnail} src={item.thumbnail} alt="Podcast thumbnail"/>
+              </CardMedia>
+              <IconButton className="btnEpisodes" onClick={() => handleAddFavorite(item.audio, item.title)} style={ user ? {display: ''} : {display: 'none'}}>
+                  <FavoriteIcon/>
+              </IconButton>
+            </div>
         </Card>
     </div> 
   );

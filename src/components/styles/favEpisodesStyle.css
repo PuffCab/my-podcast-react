@@ -10,7 +10,7 @@
     height: auto;
   } */
   
-  .containerEpisodes .btnEpisodes {
+  .containerFavEpisodes .btnFavEpisodes {
     position: absolute;
     top: 24%;
     left: 93%;
@@ -26,7 +26,7 @@
     text-align: center;
   }
   
-  .containerEpisodes .btnEpisodes:hover {
+  .containerFavEpisodes .btnFavEpisodes:hover {
     background-color: rgba(207, 200, 200, 0.678);
     color: rgb(43, 41, 41)
   }
