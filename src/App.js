@@ -39,6 +39,7 @@ import Home from './components/Home';
 
 const PrivateRoute = ({ component: Component, ...rest}) => {
   const { user } = useContext(AuthContext) 
+  console.log(`user`, user)
   return (
     <Route {...rest} render={ props => (
       user ?
@@ -88,14 +89,9 @@ function App() {
                       <Route  exact path={`/login`}>
                           <Login/>
                       </Route>
-                      {/* <PrivateRoute component={ChatRoom} exact path ='/chat' />  TODO  eliminar ruta si todo funciona y crear otra para chat*/}
-                      <Route  exact path={`/googlechat`}>
-                          <GoogleChatApp/> 
-                      </Route>
-                      {/* REVIEW private route no funciona con google chat, y tambien estropea la del userprofile */}
-                      <Route>  
+                      {/* NOTE privateRoute should go out of a Route. Otherwise wont work well if more than one */}
                       <PrivateRoute component={UserProfile} exact path ='/userProfile' />
-                      </Route>
+                      <PrivateRoute component={GoogleChatApp} exact path ='/googlechat' />
                   </Switch>
                 </ChatContextProvider>
               </PodcastsContextProvider>

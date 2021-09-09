@@ -15,7 +15,9 @@ export const PodcastsContextProvider = ({children}) => {
     // 3 -> move state and function
     const [curListDetails, setCurListDetails] = React.useState()
     
-    
+    // const fectchId = (id) => {
+    //   getId()
+    // } //REVIEW sugerencia de Lucas para pasar datos al context. Funcion , pasar la funcion as Value al provider, y despues crear la funcion getId en el componente , pasando la iD> probar
     
     
   // //INICIO commented for local Fetch

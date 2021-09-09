@@ -40,7 +40,7 @@ const PodcastList = ({curListDetails}) => {
             </Paper> */}
             <hr />
            <h2>{curListDetails.title}</h2>   
-             <p>We selected {curListDetails.total} Podcasts for you</p>
+             <p>We've selected {curListDetails.total} Podcasts for you</p>
              <hr/>
              <p>{curListDetails.description}</p>
              <hr/>

@@ -132,7 +132,7 @@ function UserProfile() {
         
         getFavorites()
         console.log(`favorites`, favorites)
-        setUserDescription(favorites)
+        // setUserDescription(favorites)
     }, [])
     
     

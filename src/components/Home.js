@@ -25,7 +25,7 @@ function Home() {
                 >
                 <div className={classes.container}>
                     <img src={pocastIcon_square} alt="" />
-                    <h3>...Go to our curated lists</h3>
+                    <h3>...we listen for you, you enjoy for us</h3>
                 </div>
             </Link>
         </div>
