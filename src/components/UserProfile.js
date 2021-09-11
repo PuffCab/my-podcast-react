@@ -36,6 +36,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import './styles/favEpisodesStyle.css'
 /////FINnuevoSTYLE de FAvEpisodes///////////////
 
+import TimeAgo from "react-timeago"
 
 /////////////////////////////////////
 
@@ -166,18 +167,19 @@ function UserProfile() {
     }
     //FIN eliminar estas funciones //////////////////////
     
-    const handleDelete = (deleteUserText) => { 
-        deleteFavorite(deleteUserText)           //REVIEW porque aunque pase este argumnto a la funcionn, n userProfileContext no puedo llamar el argumento igual
+    const handleDelete = (deleteUserText, timestamp) => { 
+        deleteFavorite(deleteUserText, timestamp)           
         console.log(`deleteUserText`, deleteUserText)
         
     }
     
-    const handleDeleteAudioFav = (deleteAudioFav, deleteFavTitle) => { 
-        deleteFavAudio(deleteAudioFav, deleteFavTitle)
+    const handleDeleteAudioFav = (deleteAudioFav,deleteEpisodeThumbnail, deleteFavTitle,  favEpisodeTime) => {  //REVIEW error al borrar por el timestamp...preguntar porque
+        deleteFavAudio(deleteAudioFav, deleteEpisodeThumbnail, deleteFavTitle,  favEpisodeTime)
+        console.log("favTime",favEpisodeTime)
     }
 
-    const handleDeleteFavPost = (podcast) => { 
-        deleteFavPodcast(podcast)
+    const handleDeleteFavPodcast = (podcast, timestamp) => { 
+        deleteFavPodcast(podcast, timestamp)
     }
      
     // REVIEW wich logic implement to avoid "cannot map of undefined" when the user has no Fav yet?
@@ -221,7 +223,7 @@ function UserProfile() {
                                                         
                                                             <div className='col order-last'>
                                                                 <p className={classes.userText}> {fav.userText}</p>
-                                                                <IconButton aria-label="delete" onClick={() => handleDelete(fav.userText)}>
+                                                                <IconButton aria-label="delete" onClick={() => handleDelete(fav.userText, fav.timestamp)}>
                                                                     <DeleteIcon />
                                                                 </IconButton>
                                                                 
@@ -239,6 +241,9 @@ function UserProfile() {
                                             <Box className={classes.favBox} border={2} boxShadow={2} borderRadius={10} borderColor="rgba(112, 109, 109, 0.712)">   
                                                 <h5>Fav Episodes</h5>
                                                 {favorite.data() ? favorite.data().favEpisodes.map((fav, index) => {
+                                                    
+                                                    let favEpisodeTime = fav.timestamp.toDate().toLocaleString() //NOTE observar como tratar timestamp
+                                                    {/* {console.log('EPISODE TIME',favEpisodeTime)} */}
 
                                                     return (
                                                         <div className='col order-last'>
@@ -251,13 +256,14 @@ function UserProfile() {
                                                                             className={classes.cardTitle} 
                                                                             component="h7" variant="h7">
                                                                             {fav.episodeTitle}
+                                                                            
                                                                         </Typography>
-                                                                        {/* <Typography 
+                                                                        <Typography 
                                                                             className={classes.cardSubTitle} 
                                                                             variant="subtitle1" 
                                                                             color="textSecondary">
-                                                                            Published on {episodeTime}
-                                                                        </Typography> */}
+                                                                            Published on <TimeAgo date={favEpisodeTime}/>
+                                                                        </Typography>
                                                                         </CardContent>
                                                                         <div className={classes.controls}>
                                                                         <audio className={classes.audioBar} controls preload='none'>
@@ -273,7 +279,7 @@ function UserProfile() {
                                                                     >
                                                                     <img className={classes.episodeThumbnail} src={fav.episodeThumbnail} alt="Podcast thumbnail"/>
                                                                     </CardMedia>
-                                                                    <IconButton className="btnEpisodes" aria-label="delete" onClick={() => handleDeleteFavPost(fav.podcast)}>
+                                                                    <IconButton className="btnEpisodes" aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audio, fav.episodeThumbnail, fav.episodeTitle,  fav.timestamp)}>
                                                                         <DeleteIcon />
                                                                     </IconButton>
                                                                     </div>
@@ -300,7 +306,7 @@ function UserProfile() {
                                                                                 {/* <p>{fav.podcast.title}</p> */}
                                                                                 <img src={fav.podcast.thumbnail} alt="logo" style={{width: "120px",height: "120px", margin: "0px"}} />
                                                                             </Link>
-                                                                            <IconButton aria-label="delete" onClick={() => handleDeleteFavPost(fav.podcast)}>
+                                                                            <IconButton aria-label="delete" onClick={() => handleDeleteFavPodcast(fav.podcast, fav.timestamp)}>
                                                                                 <DeleteIcon />
                                                                             </IconButton>
                                                                         </Paper>                                                              

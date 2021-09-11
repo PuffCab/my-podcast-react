@@ -24,6 +24,8 @@ import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import './styles/episodesStyle.css'
 // FIN imports commented for material UI card player
 
+
+
 // INICIO Styles commented for material UI card player
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +71,7 @@ const Episodes = ({item}) => {
 
     // const {id} = useParams()
     // const item = props.item
+    // console.log(`Item`, item)
     
     
     const { addFavAudio } = useContext(UserProfileContext)

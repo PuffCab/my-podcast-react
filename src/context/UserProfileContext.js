@@ -49,7 +49,8 @@ export const UserProfileContextProvider = ({children}) => {
         
         userRef.update({
             userDescription : firebaseapp.firestore.FieldValue.arrayUnion({
-                userText
+                userText,
+                timestamp: firebaseapp.firestore.Timestamp.now()
                 
             }),
             
@@ -74,7 +75,8 @@ export const UserProfileContextProvider = ({children}) => {
             favEpisodes : firebaseapp.firestore.FieldValue.arrayUnion({
                 audioFile,
                 episodeTitle,
-                episodeThumbnail
+                episodeThumbnail,
+                timestamp: firebaseapp.firestore.Timestamp.now() //NOTE timestamp:firebase.firestore.Timestamp.now() no funciona con .arrayUnion
             }),
             
         })
@@ -113,7 +115,8 @@ export const UserProfileContextProvider = ({children}) => {
        
         userRef.update({
             favPodcast : firebaseapp.firestore.FieldValue.arrayUnion({
-                podcast
+                podcast,
+                timestamp: firebaseapp.firestore.Timestamp.now()
                 
             }),
             
@@ -139,12 +142,13 @@ export const UserProfileContextProvider = ({children}) => {
 
     // }
 
-    const deleteFavorite = (userText) => {  //REVIEW userText lo recibo del handleDelete del UserProfil...pero porque si no lllamo igual el argumen que el field mas abajo, no funciona?
+    const deleteFavorite = (userText, timestamp) => {  //REVIEW userText lo recibo del handleDelete del UserProfil...pero porque si no lllamo igual el argumen que el field mas abajo, no funciona?
         const userRef = db.collection("userProfile").doc(user.uid);
         
         userRef.update({
             userDescription : firebaseapp.firestore.FieldValue.arrayRemove({
-                userText
+                userText,
+                timestamp
             })
         })
         .then(() => {
@@ -158,13 +162,15 @@ export const UserProfileContextProvider = ({children}) => {
     }
 
 
-    const deleteFavAudio = (audioFile, episodeTitle) => {  
+    const deleteFavAudio = (audioFile,episodeThumbnail, episodeTitle, timestamp) => {  
         const userRef = db.collection("userProfile").doc(user.uid);
         
         userRef.update({
             favEpisodes : firebaseapp.firestore.FieldValue.arrayRemove({
                 audioFile,
-                episodeTitle
+                episodeThumbnail,
+                episodeTitle,
+                timestamp
             })
         })
         .then(() => {
@@ -177,12 +183,13 @@ export const UserProfileContextProvider = ({children}) => {
 
     }
 
-    const deleteFavPodcast = (podcast) => {  
+    const deleteFavPodcast = (podcast, timestamp) => {  
         const userRef = db.collection("userProfile").doc(user.uid);
         
         userRef.update({
             favPodcast : firebaseapp.firestore.FieldValue.arrayRemove({
-                podcast
+                podcast,
+                timestamp
             })
         })
         .then(() => {

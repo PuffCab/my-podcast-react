@@ -13,6 +13,7 @@ export const AuthContext = createContext()
 export const AuthContextProvider = ({children}) => {
 
     const [user, setUser] = useState(null)
+    // console.log(`user`, user.uid)
 
     //create the first Database document for the User profile
     const addDocFavorite = (user) => {
