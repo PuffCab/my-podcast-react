@@ -132,7 +132,7 @@ function UserProfile() {
 
 
     // const { user } = useContext(AuthContext) //REVIEW  why??con el user del AuthContext, al hacer console de user.photoURL sale undefined.
-    console.log(`USERPROFILE`, profilePic)
+    // console.log(`USERPROFILE`, profilePic)
 
     const { favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast  } = useContext(UserProfileContext)
     
@@ -168,18 +168,19 @@ function UserProfile() {
     //FIN eliminar estas funciones //////////////////////
     
     const handleDelete = (deleteUserText, timestamp) => { 
-        deleteFavorite(deleteUserText, timestamp)           
-        console.log(`deleteUserText`, deleteUserText)
+        deleteFavorite(deleteUserText, timestamp)          
+        
         
     }
     
-    const handleDeleteAudioFav = (deleteAudioFav,deleteEpisodeThumbnail, deleteFavTitle,  favEpisodeTime) => {  //REVIEW error al borrar por el timestamp...preguntar porque
-        deleteFavAudio(deleteAudioFav, deleteEpisodeThumbnail, deleteFavTitle,  favEpisodeTime)
-        console.log("favTime",favEpisodeTime)
+    const handleDeleteAudioFav = (deleteAudioFav,deleteEpisodeThumbnail, deleteFavTitle,  timestamp) => {  //REVIEW error al borrar por el timestamp...preguntar porque
+        deleteFavAudio(deleteAudioFav, deleteEpisodeThumbnail, deleteFavTitle,  timestamp)
+        console.log('favtime', timestamp)
     }
 
     const handleDeleteFavPodcast = (podcast, timestamp) => { 
         deleteFavPodcast(podcast, timestamp)
+        
     }
      
     // REVIEW wich logic implement to avoid "cannot map of undefined" when the user has no Fav yet?
@@ -215,7 +216,7 @@ function UserProfile() {
                                                 </Box>
                                                 {/* <h6>{favorite.toData().timestamp.toDate().toLocaleString()}</h6> */}
                                                 {favorite.data() ? favorite.data().userDescription.map((fav, index) => {
-                                                    {console.log('FAVORITE', favorite.data())}
+                                                    {/* {console.log('FAVORITE', favorite.data())} */}
                                                     
 
                                                     return (
@@ -224,6 +225,7 @@ function UserProfile() {
                                                             <div className='col order-last'>
                                                                 <p className={classes.userText}> {fav.userText}</p>
                                                                 <IconButton aria-label="delete" onClick={() => handleDelete(fav.userText, fav.timestamp)}>
+                                                                {/* REVIEW ver con lucas si tiene sentido el tener que mandar en onclick=hadleDelete cada field a borrar */}
                                                                     <DeleteIcon />
                                                                 </IconButton>
                                                                 
@@ -242,7 +244,7 @@ function UserProfile() {
                                                 <h5>Fav Episodes</h5>
                                                 {favorite.data() ? favorite.data().favEpisodes.map((fav, index) => {
                                                     
-                                                    let favEpisodeTime = fav.timestamp.toDate().toLocaleString() //NOTE observar como tratar timestamp
+                                                    let favEpisodeTime = fav.timestamp.toDate() //NOTE observar como tratar timestamp (tengo que eliminar el .toLocaleString(), porque daba problemas con Timeago)
                                                     {/* {console.log('EPISODE TIME',favEpisodeTime)} */}
 
                                                     return (
@@ -262,7 +264,7 @@ function UserProfile() {
                                                                             className={classes.cardSubTitle} 
                                                                             variant="subtitle1" 
                                                                             color="textSecondary">
-                                                                            Published on <TimeAgo date={favEpisodeTime}/>
+                                                                            Added to Fav's <TimeAgo date={favEpisodeTime}/>
                                                                         </Typography>
                                                                         </CardContent>
                                                                         <div className={classes.controls}>
@@ -279,7 +281,7 @@ function UserProfile() {
                                                                     >
                                                                     <img className={classes.episodeThumbnail} src={fav.episodeThumbnail} alt="Podcast thumbnail"/>
                                                                     </CardMedia>
-                                                                    <IconButton className="btnEpisodes" aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audio, fav.episodeThumbnail, fav.episodeTitle,  fav.timestamp)}>
+                                                                    <IconButton className="btnEpisodes" aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audio, fav.episodeThumbnail, fav.episodeTitle,  fav.timestamp) }>
                                                                         <DeleteIcon />
                                                                     </IconButton>
                                                                     </div>

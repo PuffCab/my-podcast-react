@@ -56,7 +56,7 @@ const PodcastDetail = ({elements}) => {
 
 
     return (
-        <div>
+        <div style={{marginTop: 40}}>
         {
             podcastDetail && <PodcastInfo podcastDetail={podcastDetail} key={podcastDetail.id} />
         }

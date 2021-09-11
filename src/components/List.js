@@ -47,7 +47,7 @@ const List = () => {
   //SECTION END block code for Local fetch
   console.log(`DATA`, data)
   return (
-    <div>
+    <div style={{marginTop: 40}}>
       {data &&
         data.map((item, id) => (
           <Paper

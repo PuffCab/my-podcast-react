@@ -18,7 +18,7 @@ function Home() {
     const classes = useStyles();
 
     return (
-        <div>
+        <div style={{marginTop: 30}}>
              <Link
                 to='/curated'
                 style={{ textDecoration: "none", color: "black" }}

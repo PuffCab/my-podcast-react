@@ -62,7 +62,7 @@ const ListDetails = () => {
 
     return (
         
-        <div>
+        <div style={{marginTop: 40}}>
              {
                  curListDetails && <PodcastList curListDetails={curListDetails}/>
              }

@@ -79,6 +79,7 @@ const Episodes = ({item}) => {
     
 
     let episodeTime = new Date(item.pub_date_ms).toLocaleDateString()
+    // let addedToFavTime = new Date().toLocaleString() + '' //Date when it is added to fav
 
     const handleAddFavorite = (audio, title, thumbnail) => {
         addFavAudio(audio, title, thumbnail)

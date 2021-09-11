@@ -45,13 +45,21 @@ const useStyles = makeStyles((theme) => ({
   logoutButton : {
     '& > *': {
       margin: theme.spacing(0),
-    }
+    },
+    
+  },
+  signOutBtnDiv : {
+    marginTop: 4
   },
   navBar : {
     display: "flex",
-    flexDirection: "row",
+    position: 'fixed',
+    top: 0,
+    width: '100%',
     justifyContent: "space-around",
-    margin: "4px"
+    margin: 0,
+    backgroundColor: 'white !important',
+    zIndex: 1
   },
   backIcon: {
     marginTop: "9px"
@@ -138,8 +146,8 @@ const useStyles = makeStyles((theme) => ({
                 Open Menu
               </Button>
               <ArrowBackIcon className={classes.backIcon} onClick={handleGoBack}>Go Back</ArrowBackIcon>
-              <div>
-                <GoogleSignOut/>
+              <div className={classes.signOutBtnDiv}>
+                <GoogleSignOut className={classes.logoutButton}/>
               </div>
           </Box>
           <Menu
