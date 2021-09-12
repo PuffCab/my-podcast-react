@@ -173,7 +173,7 @@ function UserProfile() {
         
     }
     
-    const handleDeleteAudioFav = (deleteAudioFav,deleteEpisodeThumbnail, deleteFavTitle,  timestamp) => {  //REVIEW error al borrar por el timestamp...preguntar porque
+    const handleDeleteAudioFav = (deleteAudioFav,deleteEpisodeThumbnail, deleteFavTitle,  timestamp) => { 
         deleteFavAudio(deleteAudioFav, deleteEpisodeThumbnail, deleteFavTitle,  timestamp)
         // console.log('favtime', timestamp)
     }
@@ -211,7 +211,6 @@ function UserProfile() {
                                                 <h5>My notes</h5>
                                                 <Box>
                                                     <input type="text" placeholder='message' value={userDescription} onChange={handleOnchange} />
-                                                    {/* REVIEW que aparezca en in value del input:[object Object],[object,Object] al volver atras */}
                                                     <Button onClick={handleAddFavorite} variant="outlined" color="red" size="small">write note</Button>
                                                 </Box>
                                                 {/* <h6>{favorite.toData().timestamp.toDate().toLocaleString()}</h6> */}

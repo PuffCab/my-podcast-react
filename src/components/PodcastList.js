@@ -62,15 +62,17 @@ const PodcastList = ({curListDetails}) => {
                                     <div>
                                         <div className="containerPodcastList">
                                             <Podcast key={item.id} elements={item}/>
-                                            <IconButton className="btnPodcastList" onClick={() => {handleAddFavPodcast(item)}} style={ user ? {display: ''} : {display: 'none'}}>
+                                            {/* <IconButton className="btnPodcastList" onClick={() => {handleAddFavPodcast(item)}} style={ user ? {display: ''} : {display: 'none'}}>
+                                                <FavoriteIcon/>
+                                            </IconButton>  dispaly FavBtn only if logged in*/} 
+                                        
+                                            <IconButton className="btnPodcastList" onClick={
+                                                user ? () => {handleAddFavPodcast(item)}
+                                                    : () => alert ('Life ain´t easy ... Please Login first ')
+                                                }>  
                                                 <FavoriteIcon/>
                                             </IconButton>
                                         </div>
-                                        {/* <button onClick={
-                                            user ? () => {handleAddFavPodcast(item)}
-                                                : () => alert ('Life ain´t easy ... Login first ')
-                                            }>addToFav</button> */}
-                                            {/* REVIEW preguntar lucas si es good practice llamar la funcion asi , o sino como evitar que se llame a la funcion en cada render */}
                                     </div>               
                                 )
                     })}

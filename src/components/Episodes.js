@@ -142,7 +142,13 @@ const Episodes = ({item}) => {
               >
               <img className={classes.episodeThumbnail} src={item.thumbnail} alt="Podcast thumbnail"/>
               </CardMedia>
-              <IconButton className="btnEpisodes" onClick={() => handleAddFavorite(item.audio, item.title, item.thumbnail)} style={ user ? {display: ''} : {display: 'none'}}>
+              {/* <IconButton className="btnEpisodes" onClick={() => handleAddFavorite(item.audio, item.title, item.thumbnail)} style={ user ? {display: ''} : {display: 'none'}}>
+                  <FavoriteIcon/>
+              </IconButton> */}
+              <IconButton className="btnPodcastList" onClick={
+                  user ? () => handleAddFavorite(item.audio, item.title, item.thumbnail)
+                      : () => alert ('Life ain´t easy ... Please Login first ')
+                  }>  
                   <FavoriteIcon/>
               </IconButton>
             </div>
