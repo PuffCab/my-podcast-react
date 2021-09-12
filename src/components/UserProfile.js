@@ -208,6 +208,7 @@ function UserProfile() {
             }, 
             () => {
                 console.log('sucess');
+                // updateUserWithPic(file) //DELETE when solved question about update
                 setImgUpload(100)
                 firebase
                 .storage()
@@ -220,11 +221,26 @@ function UserProfile() {
 
     }
     
+
+    // const updateUserWithPic = (file) => {  //ASK not working, why?
+    //     const user = firebase.auth().currentUser;
+    //     console.log(`USER en update function`, user)
+
+    //         user.updatePhotoURL({
+            
+    //         photoURL: file
+    //         }).then(() => {
+    //         console.log ('User updated with Picture')
+    //         }).catch((error) => {
+    //             console.log ('Fail to update user', error.message)
+    //         });
+    // }
     
     const handleImgUpload = (files) => {
         const file = files[0]
         console.log(`file`, file)
         firebaseStorageUpload(file)
+        
     }
     
     const handleDeletePic = () => {

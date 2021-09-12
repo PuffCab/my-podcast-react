@@ -29,7 +29,8 @@ const auth = firebase.auth();
 
 function GoogleChatApp() {
     
-   
+    
+
     const [user] = useAuthState(auth);
     
 
@@ -103,7 +104,10 @@ export  function GoogleSignOut() {
 
     // console.log(`QUERY`, messagesRef)
     
-    
+    const {userProfilePic} = useContext(UserProfileContext)
+    console.log(`userPIC en CHAT`, userProfilePic)
+
+
 
     //escuchamos cada cambio en la database en tiempo real con el useCollectionData hook, que retorna un array de objects en el que cada object es el chatmessage en la database
     //y cada vez que la database cambia, reacciona en realtime haciendo un rerendering, Actualizando la lista mensajes
@@ -126,7 +130,7 @@ export  function GoogleSignOut() {
             text: formValue,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             uid,
-            photoURL
+            photoURL: userProfilePic
         });
         setFormValue('');
 

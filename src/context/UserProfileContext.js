@@ -1,5 +1,5 @@
 import React from 'react';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { AuthContext } from "./authContext";
 import firebase from "../config"
 import firebaseapp from "firebase/app";
@@ -18,8 +18,10 @@ export const UserProfileContextProvider = ({children}) => {
     const {user} = useContext(AuthContext)
     const [favorites, setFavorites] = useState([])
 
+    const [userProfilePic, setUserProfilePic] = useState('')
 
     console.log(user)
+
 
 
     //INICIO comentado para cambiar el metodo por arrayUnion
@@ -149,6 +151,7 @@ export const UserProfileContextProvider = ({children}) => {
             console.error("Error loading picture: ", error);
         });;
 
+        setUserProfilePic(photoURL)
         
 
         
@@ -243,11 +246,11 @@ export const UserProfileContextProvider = ({children}) => {
     }
 
 
-    
+    console.log('Pic en userprofileContext', userProfilePic)
 
 
     return (
-        <UserProfileContext.Provider value={{favorites, addFavorite,addFavAudio,addFavPodcast, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast, addProfilePic}}>
+        <UserProfileContext.Provider value={{favorites, addFavorite,addFavAudio,addFavPodcast, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast, addProfilePic, userProfilePic}}>
             {children}
         </UserProfileContext.Provider>
     )
