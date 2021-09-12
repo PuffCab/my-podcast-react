@@ -175,7 +175,7 @@ function UserProfile() {
     
     const handleDeleteAudioFav = (deleteAudioFav,deleteEpisodeThumbnail, deleteFavTitle,  timestamp) => {  //REVIEW error al borrar por el timestamp...preguntar porque
         deleteFavAudio(deleteAudioFav, deleteEpisodeThumbnail, deleteFavTitle,  timestamp)
-        console.log('favtime', timestamp)
+        // console.log('favtime', timestamp)
     }
 
     const handleDeleteFavPodcast = (podcast, timestamp) => { 
@@ -190,7 +190,7 @@ function UserProfile() {
 
             
         <Container component="main" maxWidth="xs" className={classes.favoriteContainer}>
-            <Grid container>
+            <Grid container style={{marginTop: 40}}>
              <Grid item xs={12}>
                 <Box className={classes.userNameBox} border={2} boxShadow={2} borderRadius={10} borderColor="rgba(112, 109, 109, 0.712)" >
                     <h3 style={{margin: "5px"}}>{user? `${user?.displayName ?? user.email }'S profile` : "Not logged in"}</h3>
@@ -270,7 +270,7 @@ function UserProfile() {
                                                                         <div className={classes.controls}>
                                                                         <audio className={classes.audioBar} controls preload='none'>
                                                                                         
-                                                                            <source src={fav.audio} type="audio/mpeg"  />
+                                                                            <source src={fav.audioFile} type="audio/mpeg"  />
                                                                         </audio> 
                                                                         </div>
                                                                     </div>
@@ -281,7 +281,7 @@ function UserProfile() {
                                                                     >
                                                                     <img className={classes.episodeThumbnail} src={fav.episodeThumbnail} alt="Podcast thumbnail"/>
                                                                     </CardMedia>
-                                                                    <IconButton className="btnEpisodes" aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audio, fav.episodeThumbnail, fav.episodeTitle,  fav.timestamp) }>
+                                                                    <IconButton className="btnEpisodes" aria-label="delete" onClick={() => handleDeleteAudioFav(fav.audioFile, fav.episodeThumbnail, fav.episodeTitle,  fav.timestamp) }>
                                                                         <DeleteIcon />
                                                                     </IconButton>
                                                                     </div>
