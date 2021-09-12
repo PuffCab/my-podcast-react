@@ -93,17 +93,17 @@ export const UserProfileContextProvider = ({children}) => {
     //get Favorites from Firebase
     const getFavorites = () => {
 
-        db.collection("userProfile").get().then((querySnapshot) => {
+        db.collection("userProfile").get().then((querySnapshot) => { //ASK orderBy('timestamp', 'desc') , or .limit(2) doesnt work
             
             const favoritesArray = []
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 favoritesArray.push(doc)
-                console.log(`favoritesArray`, doc)
+                // console.log(`favoritesArray`, doc)
             });
             
             setFavorites(favoritesArray)
-            console.log(`favoritesArray`, favoritesArray)
+            // console.log(`FAvorites`, favorites) 
         });
         
     }
@@ -122,7 +122,7 @@ export const UserProfileContextProvider = ({children}) => {
             
         })
         .then(() => {
-            console.log("Podcast added to Favorites!");
+            console.log("Podcast added to Favorites!"); //DELETE esta parte para probar
             getFavorites() //to update the list instantly
         })
         .catch((error) => {
@@ -130,6 +130,45 @@ export const UserProfileContextProvider = ({children}) => {
         });;
     }
 
+    const addProfilePic = (photoURL) => {
+        // console.log(`user`, user.uid)
+        // console.log(`userDescrip`, userDescription)
+        
+
+        const userRef = db.collection("userProfile").doc(user.uid);
+        
+        userRef.update({
+            photoURL
+            
+        })
+        .then(() => {
+            console.log("PhotoURL successfully written!");
+            getFavorites()
+        })
+        .catch((error) => {
+            console.error("Error loading picture: ", error);
+        });;
+
+
+        
+    } //TODO modificar esta funcion, y el resto de anhadir favoritos, por la funcion mas universal del video que pongo a continuacion 
+
+    ///////////////////////TODO Funcion de update de favoritos universal. uno para todos. y para eliminar tambien.  44:26 video
+    // const updateUserData = (updateData) => {
+    //     db.collection("users").doc(user.uid).set({
+    //         ...updateData
+
+    //     }).then(() => {
+
+    //         console.log("Document successfully written!");
+    //         setUserData({ ...updateData })
+
+    //     }).catch((error) => {
+    //         console.error("Error writing document: ", error);
+    //     });
+    // }
+    ///////////////////FIN funcion universal
+    
 
 
     //Delete from favorites
@@ -207,7 +246,7 @@ export const UserProfileContextProvider = ({children}) => {
 
 
     return (
-        <UserProfileContext.Provider value={{favorites, addFavorite,addFavAudio,addFavPodcast, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast}}>
+        <UserProfileContext.Provider value={{favorites, addFavorite,addFavAudio,addFavPodcast, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast, addProfilePic}}>
             {children}
         </UserProfileContext.Provider>
     )

@@ -37,7 +37,7 @@ import './styles/favEpisodesStyle.css'
 /////FINnuevoSTYLE de FAvEpisodes///////////////
 
 import TimeAgo from "react-timeago"
-
+import { LinearProgress } from '@material-ui/core';
 /////////////////////////////////////
 
 const useStyles = makeStyles((theme) => ({
@@ -99,16 +99,20 @@ const useStyles = makeStyles((theme) => ({
             width: 200,
             height: 30
         },
-        episodeThumbnail : {
+    episodeThumbnail : {
             objectFit: "contain",
             width: "100%",
             height: "100%"
           },
-          userText : {
+    userText : {
               marginTop: 0,
               marginBottom: 0
 
-          }
+          },
+    
+    selectFileText: {
+        fontSize: 'x-small'
+    }
 
   }));
 
@@ -134,8 +138,8 @@ function UserProfile() {
     // const { user } = useContext(AuthContext) //REVIEW  why??con el user del AuthContext, al hacer console de user.photoURL sale undefined.
     // console.log(`USERPROFILE`, profilePic)
 
-    const { favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast  } = useContext(UserProfileContext)
-    
+    const { favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast,addProfilePic} = useContext(UserProfileContext)
+    const [imgUpload, setImgUpload] = useState(0)
     const [userDescription, setUserDescription] = useState("")
 
     //useEffect para conseguir los favoritos cuando cargue el componente
@@ -182,9 +186,50 @@ function UserProfile() {
         deleteFavPodcast(podcast, timestamp)
         
     }
-     
     // REVIEW wich logic implement to avoid "cannot map of undefined" when the user has no Fav yet?
+
+    const firebaseStorageUpload = (file) => {
+        const storageService = firebase.storage(); //call Storage from firebase. Imported in config.js
+        const storageRef = storageService.ref();
+
+        setImgUpload(0)
+        const uploadTask = storageRef.child(`photoURL/${file.name}`).put(file);
+
+            // Listen for state changes, errors, and completion of the upload.
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            (snapshot) => {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                setImgUpload(progress)
+            }, 
+            (error) => {
+                console.log(error);
+            }, 
+            () => {
+                console.log('sucess');
+                setImgUpload(100)
+                firebase
+                .storage()
+                .ref(`photoURL/`)
+                .child(`${file.name}`)
+                .getDownloadURL()
+                .then(url => addProfilePic(url));  //ASK como agregar el photoURL al USER.photoURL ...es lo que se hacia teniendo que poner tarjeta?
+            }
+            );
+
+    }
     
+    
+    const handleImgUpload = (files) => {
+        const file = files[0]
+        console.log(`file`, file)
+        firebaseStorageUpload(file)
+    }
+    
+    const handleDeletePic = () => {
+        addProfilePic('')
+    }
     return (
             
 
@@ -194,7 +239,50 @@ function UserProfile() {
              <Grid item xs={12}>
                 <Box className={classes.userNameBox} border={2} boxShadow={2} borderRadius={10} borderColor="rgba(112, 109, 109, 0.712)" >
                     <h3 style={{margin: "5px"}}>{user? `${user?.displayName ?? user.email }'S profile` : "Not logged in"}</h3>
-                    <Avatar src={profilePic} alt="profile"  className={classes.Avatar}/>
+                    {favorites ? favorites.map((favorite, index) => {
+                        {/* console.log('FAVorite', favorite.data()) */}
+                        const favoriteData = favorite.data()
+                        if (favorite.id === user.uid) {
+                            return (
+                                <div>
+                                {imgUpload > 0 && !favoriteData?.photoURL && <LinearProgress variant="buffer" value={imgUpload} valueBuffer={imgUpload} color="secondary" />}
+                                {favoriteData?.photoURL ? <Avatar src={favoriteData.photoURL} alt="profile"  /> : 
+                                <input className={classes.selectFileText} multiple required accept="image/*" type="file"
+                                                onChange={(e) => { 
+                                                    if (e.target.files) {
+                                                        handleImgUpload(e.target.files)
+                                                    }
+                                                }} 
+                                            />} 
+
+                                    
+                                    {console.log('FOTO', favoriteData.photoURL.photoURL)}
+                                    <IconButton aria-label="delete" onClick={handleDeletePic} >
+                                        <DeleteIcon />
+                                    </IconButton>      
+
+                                </div>
+                            )
+                        }
+
+                        }): <h2>....No picture...</h2>
+                    }
+                    
+                    {/* <div>
+                        <Avatar src={profilePic} alt="profile"  className={classes.Avatar}/>
+                        {console.log('FOTO', user)}
+                        <div>
+                            {imgUpload > 0 && !favorites?.avatar && <LinearProgress variant="buffer" value={imgUpload} valueBuffer={imgUpload} color="secondary" />}
+                            {favorites?.photoURL ? <img src={favorites.photoURL} alt="avatar" width={100} height="auto" /> :
+                                <input multiple required accept="image/*" type="file"
+                                    onChange={(e) => { 
+                                        if (e.target.files) {
+                                            handleImgUpload(e.target.files)
+                                        }
+                                    }}
+                                />} 
+                        </div>
+                    </div> */}
                 </Box>
                 <div  >
                     
@@ -224,7 +312,6 @@ function UserProfile() {
                                                             <div className='col order-last'>
                                                                 <p className={classes.userText}> {fav.userText}</p>
                                                                 <IconButton aria-label="delete" onClick={() => handleDelete(fav.userText, fav.timestamp)}>
-                                                                {/* REVIEW ver con lucas si tiene sentido el tener que mandar en onclick=hadleDelete cada field a borrar */}
                                                                     <DeleteIcon />
                                                                 </IconButton>
                                                                 
