@@ -16,6 +16,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useState, useRef } from 'react';
 import { AuthContext } from '../context/authContext';
+import { UserProfileContext } from '../context/UserProfileContext';
 
 
 //Initialize firebase
@@ -28,6 +29,7 @@ const auth = firebase.auth();
 
 function GoogleChatApp() {
     
+   
     const [user] = useAuthState(auth);
     
 

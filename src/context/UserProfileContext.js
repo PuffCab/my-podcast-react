@@ -149,6 +149,7 @@ export const UserProfileContextProvider = ({children}) => {
             console.error("Error loading picture: ", error);
         });;
 
+        
 
         
     } //TODO modificar esta funcion, y el resto de anhadir favoritos, por la funcion mas universal del video que pongo a continuacion 
@@ -242,7 +243,7 @@ export const UserProfileContextProvider = ({children}) => {
     }
 
 
-
+    
 
 
     return (
