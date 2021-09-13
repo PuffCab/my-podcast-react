@@ -215,14 +215,14 @@ function UserProfile() {
                 .ref(`photoURL/`)
                 .child(`${file.name}`)
                 .getDownloadURL()
-                .then(url => {updateUserWithPic(url); addProfilePic(url)});  //ASK como agregar el photoURL al USER.photoURL ...es lo que se hacia teniendo que poner tarjeta?
+                .then(url => {updateUserWithPic(url); addProfilePic(url)});
             }
             );
 
     }
     
 
-    const updateUserWithPic = (file) => {  //ASK not working, why?
+    const updateUserWithPic = (file) => {  
         const user = firebase.auth().currentUser;
         console.log(`USER en update function`, user)
         console.log(`uploadedPIC`, file)
@@ -263,21 +263,22 @@ function UserProfile() {
                         if (favorite.id === user.uid) {
                             return (
                                 <div>
-                                {imgUpload > 0 && !favoriteData?.photoURL && <LinearProgress variant="buffer" value={imgUpload} valueBuffer={imgUpload} color="secondary" />}
-                                {favoriteData?.photoURL ? <Avatar src={favoriteData.photoURL} alt="profile"  /> : 
-                                <input className={classes.selectFileText} multiple required accept="image/*" type="file"
-                                                onChange={(e) => { 
-                                                    if (e.target.files) {
-                                                        handleImgUpload(e.target.files)
-                                                    }
-                                                }} 
-                                            />} 
-
-                                    
-                                    {console.log('FOTO', favoriteData.photoURL.photoURL)}
-                                    <IconButton aria-label="delete" onClick={handleDeletePic} >
-                                        <DeleteIcon />
-                                    </IconButton>      
+                                    {imgUpload > 0 && !favoriteData?.photoURL && <LinearProgress variant="buffer" value={imgUpload} valueBuffer={imgUpload} color="secondary" />}
+                                    {favoriteData?.photoURL ? <Avatar src={favoriteData.photoURL} alt="profile"  /> : 
+                                    <Input className={classes.selectFileText} hidden multiple required accept="image/*" type="file" id="imageUpload"
+                                                    onChange={(e) => { 
+                                                        if (e.target.files) {
+                                                            handleImgUpload(e.target.files)
+                                                        }
+                                                    }} 
+                                                />} 
+                                    <label htmlFor="imageUpload">
+                                        {""}
+                                        <AddAPhotoIcon fontSize="small" style={{ cursor: "pointer" }}/>
+                                    </label>
+                                        <IconButton aria-label="delete" onClick={handleDeletePic} >
+                                            <DeleteIcon />
+                                        </IconButton>      
 
                                 </div>
                             )

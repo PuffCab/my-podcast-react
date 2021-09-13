@@ -16,7 +16,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useState, useRef } from 'react';
 import { AuthContext } from '../context/authContext';
-import { UserProfileContext } from '../context/UserProfileContext';
 
 
 //Initialize firebase
@@ -32,9 +31,7 @@ function GoogleChatApp() {
     
 
     const [user] = useAuthState(auth);
-    
-
-    console.log(`USERGOOGLECHATAPPL32`, user)
+    // console.log(`USERCHATAPP`, user)
 
     return (
         <div className='googleChatBody'>
@@ -175,7 +172,7 @@ export  function GoogleSignOut() {
  function GchatMessage({ message }) {
     //accedemos al mensaje a traves de las props enviadas desde su componente padre.
     const {text, uid, photoURL} = message
-    console.log(`pic from USer object`, photoURL)
+    // console.log(`pic from USer object`, photoURL)
 
     //diferenciamos entre mensj reciv y enviados comparando el uid y usando nombre css clases
     const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received'
