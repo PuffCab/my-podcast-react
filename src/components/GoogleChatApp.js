@@ -104,8 +104,8 @@ export  function GoogleSignOut() {
 
     // console.log(`QUERY`, messagesRef)
     
-    const {userProfilePic} = useContext(UserProfileContext)
-    console.log(`userPIC en CHAT`, userProfilePic)
+    // const {userProfilePic} = useContext(UserProfileContext)
+    // console.log(`userPIC en CHAT`, userProfilePic)
 
 
 
@@ -130,7 +130,7 @@ export  function GoogleSignOut() {
             text: formValue,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             uid,
-            photoURL: userProfilePic
+            photoURL
         });
         setFormValue('');
 
@@ -175,6 +175,7 @@ export  function GoogleSignOut() {
  function GchatMessage({ message }) {
     //accedemos al mensaje a traves de las props enviadas desde su componente padre.
     const {text, uid, photoURL} = message
+    console.log(`pic from USer object`, photoURL)
 
     //diferenciamos entre mensj reciv y enviados comparando el uid y usando nombre css clases
     const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received'

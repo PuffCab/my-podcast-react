@@ -208,33 +208,35 @@ function UserProfile() {
             }, 
             () => {
                 console.log('sucess');
-                // updateUserWithPic(file) //DELETE when solved question about update
+                 
                 setImgUpload(100)
                 firebase
                 .storage()
                 .ref(`photoURL/`)
                 .child(`${file.name}`)
                 .getDownloadURL()
-                .then(url => addProfilePic(url));  //ASK como agregar el photoURL al USER.photoURL ...es lo que se hacia teniendo que poner tarjeta?
+                .then(url => {updateUserWithPic(url); addProfilePic(url)});  //ASK como agregar el photoURL al USER.photoURL ...es lo que se hacia teniendo que poner tarjeta?
             }
             );
 
     }
     
 
-    // const updateUserWithPic = (file) => {  //ASK not working, why?
-    //     const user = firebase.auth().currentUser;
-    //     console.log(`USER en update function`, user)
-
-    //         user.updatePhotoURL({
+    const updateUserWithPic = (file) => {  //ASK not working, why?
+        const user = firebase.auth().currentUser;
+        console.log(`USER en update function`, user)
+        console.log(`uploadedPIC`, file)
+            user.updateProfile({
             
-    //         photoURL: file
-    //         }).then(() => {
-    //         console.log ('User updated with Picture')
-    //         }).catch((error) => {
-    //             console.log ('Fail to update user', error.message)
-    //         });
-    // }
+            photoURL: file
+            }).then(() => {
+            console.log ('User updated with Picture')
+            console.log("USER after IMG upload", user.photoURL)
+            }).catch((error) => {
+                console.log ('Fail to update user', error.message)
+            });
+
+    }
     
     const handleImgUpload = (files) => {
         const file = files[0]
