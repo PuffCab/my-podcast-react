@@ -16,7 +16,7 @@ export const UserProfileContext = createContext()
 export const UserProfileContextProvider = ({children}) => {
 
     const {user} = useContext(AuthContext)
-    const [favorites, setFavorites] = useState([])
+    const [userData, setUserData] = useState("")
 
     const [userProfilePic, setUserProfilePic] = useState('')
 
@@ -59,7 +59,7 @@ export const UserProfileContextProvider = ({children}) => {
         })
         .then(() => {
             console.log("Document successfully written!");
-            getFavorites()
+            getUserData()
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -84,7 +84,7 @@ export const UserProfileContextProvider = ({children}) => {
         })
         .then(() => {
             console.log("Audio successfully written!");
-            getFavorites() //to update the list instantly
+            getUserData() //to update the list instantly
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -93,19 +93,13 @@ export const UserProfileContextProvider = ({children}) => {
 
 
     //get Favorites from Firebase
-    const getFavorites = () => {
-
-        db.collection("userProfile").get().then((querySnapshot) => { //ASK orderBy('timestamp', 'desc') , or .limit(2) doesnt work
+    const getUserData = () => {
+        const userRef = db.collection("userProfile").doc(user.uid);
+        userRef.get().then((userDocument) => { 
+        
             
-            const favoritesArray = []
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                favoritesArray.push(doc)
-                // console.log(`favoritesArray`, doc)
-            });
-            
-            setFavorites(favoritesArray)
-            // console.log(`FAvorites`, favorites) 
+            setUserData(userDocument.data())
+            // console.log(`favoritesInContext`, userDocument.data()) 
         });
         
     }
@@ -125,7 +119,7 @@ export const UserProfileContextProvider = ({children}) => {
         })
         .then(() => {
             console.log("Podcast added to Favorites!"); //DELETE esta parte para probar
-            getFavorites() //to update the list instantly
+            getUserData() //to update the list instantly
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -145,7 +139,7 @@ export const UserProfileContextProvider = ({children}) => {
         })
         .then(() => {
             console.log("PhotoURL successfully written!");
-            getFavorites()
+            getUserData()
         })
         .catch((error) => {
             console.error("Error loading picture: ", error);
@@ -196,7 +190,7 @@ export const UserProfileContextProvider = ({children}) => {
         })
         .then(() => {
             console.log("Document successfully Deleted!");
-            getFavorites() //to update the list instantly
+            getUserData() //to update the list instantly
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -218,7 +212,7 @@ export const UserProfileContextProvider = ({children}) => {
         })
         .then(() => {
             console.log("Document successfully Deleted!");
-            getFavorites() //to update the list instantly
+            getUserData() //to update the list instantly
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -237,7 +231,7 @@ export const UserProfileContextProvider = ({children}) => {
         })
         .then(() => {
             console.log("Document successfully Deleted!");
-            getFavorites() //to update the list instantly
+            getUserData() //to update the list instantly
         })
         .catch((error) => {
             console.error("Error writing document: ", error);
@@ -250,7 +244,7 @@ export const UserProfileContextProvider = ({children}) => {
 
 
     return (
-        <UserProfileContext.Provider value={{favorites, addFavorite,addFavAudio,addFavPodcast, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast, addProfilePic, userProfilePic}}>
+        <UserProfileContext.Provider value={{userData, addFavorite,addFavAudio,addFavPodcast, getUserData, deleteFavorite, deleteFavAudio, deleteFavPodcast, addProfilePic, userProfilePic}}>
             {children}
         </UserProfileContext.Provider>
     )

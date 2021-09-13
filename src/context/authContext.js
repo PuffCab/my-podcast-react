@@ -16,7 +16,7 @@ export const AuthContextProvider = ({children}) => {
     // console.log(`user`, user.uid)
 
     //create the first Database document for the User profile
-    const addDocFavorite = (user) => {
+    const addUserData = (user) => {
         // console.log(`user`, user.uid)
 
         db.collection("userProfile").doc(user.uid).set({
@@ -44,10 +44,10 @@ export const AuthContextProvider = ({children}) => {
               // User is signed in, see docs for a list of available properties
               // https://firebase.google.com/docs/reference/js/firebase.User
               var uid = user.uid;
-              console.log(`AUTHCONTEXT-L58-userUID`, uid)
-              console.log(`AUTHCONTEXT-L59-usercredential`, uid)
+              console.log(`AUTHCONTEXT-L47-userUID`, uid)
+              console.log(`AUTHCONTEXT-L48-usercredential`, uid)
                 setUser(user) //esto nos mantiene logeados cuando refrescamos pagina
-
+                
             } else {
               // User is signed out
               setUser(null)
@@ -56,7 +56,7 @@ export const AuthContextProvider = ({children}) => {
           });
     }, [])
     //FIN Get the currently signed-in user. 
-
+ 
     const register = ({ email, password, name}) => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
@@ -73,7 +73,7 @@ export const AuthContextProvider = ({children}) => {
                     console.log(`user`, user.displayName)
                     // Update successful
                     setUser(user) //set my updated user to the new valu e
-                    addDocFavorite(user) // 
+                    addUserData(user) // 
                   }).catch((error) => {
                     // An error occurred
                     // ...
@@ -111,7 +111,7 @@ export const AuthContextProvider = ({children}) => {
 
     return (
 
-        <AuthContext.Provider value={{user,  register, login, addDocFavorite }}>
+        <AuthContext.Provider value={{user,  register, login, addUserData }}>
             {children}
         </AuthContext.Provider>
 

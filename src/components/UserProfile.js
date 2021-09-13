@@ -64,7 +64,11 @@ const useStyles = makeStyles((theme) => ({
     },
     userNameBox: {
         display: "flex",
-        justifyContent: "space-around"
+        justifyContent: "space-around",
+        alignItems: "center"
+    },
+    imgContainer : {
+        marginTop: 3
     },
     favBox : {
         display: "grid",
@@ -138,19 +142,19 @@ function UserProfile() {
     // const { user } = useContext(AuthContext) //REVIEW  why??con el user del AuthContext, al hacer console de user.photoURL sale undefined.
     // console.log(`USERPROFILE`, profilePic)
 
-    const { favorites, addFavorite,addFavAudio, getFavorites, deleteFavorite, deleteFavAudio, deleteFavPodcast,addProfilePic} = useContext(UserProfileContext)
+    const { userData, addFavorite,addFavAudio, getUserData, deleteFavorite, deleteFavAudio, deleteFavPodcast,addProfilePic} = useContext(UserProfileContext)
     const [imgUpload, setImgUpload] = useState(0)
     const [userDescription, setUserDescription] = useState("")
 
     //useEffect para conseguir los favoritos cuando cargue el componente
     useEffect(() => {
         
-        getFavorites()
-        // console.log(`favorites`, favorites)
-        // setUserDescription(favorites)
-    }, [])
+       user && getUserData() // porque daba el userData state vacio porque se llamaba a la funcion "demasiado pronto". nos aseguramos de tener os data y en el parametro mandamos [user]
+        
+        
+    }, [user])
     
-    
+    console.log(`user`, user)
     //get/Create Favorites clicked in component (uso el texto de los mensajs por el momento)
     // const { messages } = useContext(ChatContext)
 
@@ -215,6 +219,7 @@ function UserProfile() {
                 .ref(`photoURL/`)
                 .child(`${file.name}`)
                 .getDownloadURL()
+                // .then(url => {updateUserWithPic(url); addProfilePic(url)}); // TODO delete if updating with universial func
                 .then(url => {updateUserWithPic(url); addProfilePic(url)});
             }
             );
@@ -257,14 +262,11 @@ function UserProfile() {
              <Grid item xs={12}>
                 <Box className={classes.userNameBox} border={2} boxShadow={2} borderRadius={10} borderColor="rgba(112, 109, 109, 0.712)" >
                     <h3 style={{margin: "5px"}}>{user? `${user?.displayName ?? user.email }'S profile` : "Not logged in"}</h3>
-                    {favorites ? favorites.map((favorite, index) => {
-                        {/* console.log('FAVorite', favorite.data()) */}
-                        const favoriteData = favorite.data()
-                        if (favorite.id === user.uid) {
-                            return (
-                                <div>
-                                    {imgUpload > 0 && !favoriteData?.photoURL && <LinearProgress variant="buffer" value={imgUpload} valueBuffer={imgUpload} color="secondary" />}
-                                    {favoriteData?.photoURL ? <Avatar src={favoriteData.photoURL} alt="profile"  /> : 
+                   { console.log('FAVorite', userData)}
+                    
+                                <div className={classes.imgContainer}>
+                                    {imgUpload > 0 && !userData?.photoURL && <LinearProgress variant="buffer" value={imgUpload} valueBuffer={imgUpload} color="secondary" />}
+                                    {userData?.photoURL ? <Avatar src={userData.photoURL} alt="profile"  /> : 
                                     <Input className={classes.selectFileText} hidden multiple required accept="image/*" type="file" id="imageUpload"
                                                     onChange={(e) => { 
                                                         if (e.target.files) {
@@ -272,45 +274,27 @@ function UserProfile() {
                                                         }
                                                     }} 
                                                 />} 
+                                    
                                     <label htmlFor="imageUpload">
                                         {""}
-                                        <AddAPhotoIcon fontSize="small" style={{ cursor: "pointer" }}/>
+                                        { userData?.photoURL  ? <AddAPhotoIcon style={{display : "none"}}/> : <AddAPhotoIcon fontSize="small" style={{ cursor: "pointer" }}/> }   
                                     </label>
                                         <IconButton aria-label="delete" onClick={handleDeletePic} >
                                             <DeleteIcon />
                                         </IconButton>      
 
                                 </div>
-                            )
-                        }
-
-                        }): <h2>....No picture...</h2>
-                    }
-                    
-                    {/* <div>
-                        <Avatar src={profilePic} alt="profile"  className={classes.Avatar}/>
-                        {console.log('FOTO', user)}
-                        <div>
-                            {imgUpload > 0 && !favorites?.avatar && <LinearProgress variant="buffer" value={imgUpload} valueBuffer={imgUpload} color="secondary" />}
-                            {favorites?.photoURL ? <img src={favorites.photoURL} alt="avatar" width={100} height="auto" /> :
-                                <input multiple required accept="image/*" type="file"
-                                    onChange={(e) => { 
-                                        if (e.target.files) {
-                                            handleImgUpload(e.target.files)
-                                        }
-                                    }}
-                                />} 
-                        </div>
-                    </div> */}
+                            
                 </Box>
                 <div  >
+                {console.log("myFavorite", userData)}
                     
-                    {favorites ? favorites.map((favorite, index) => {
+
                         {/* {console.log("this is favorites", favorites)} */}
-                        if (favorite.id === user.uid) {
+                        
                             {/* {console.log('FAVORITE', favorite.data())} */}
                             
-                        return (
+                        
                                 <div className='container'>
                                     <div className='row'>
                                         <div className='col'>
@@ -321,7 +305,8 @@ function UserProfile() {
                                                     <Button onClick={handleAddFavorite} variant="outlined" color="red" size="small">write note</Button>
                                                 </Box>
                                                 {/* <h6>{favorite.toData().timestamp.toDate().toLocaleString()}</h6> */}
-                                                {favorite.data() ? favorite.data().userDescription.map((fav, index) => {
+                                                {console.log("userData l308", userData)}
+                                                {userData ? userData.userDescription.map((fav, index) => {
                                                     {/* {console.log('FAVORITE', favorite.data())} */}
                                                     
 
@@ -347,7 +332,7 @@ function UserProfile() {
                                         <div className='col'>
                                             <Box className={classes.favBox} border={2} boxShadow={2} borderRadius={10} borderColor="rgba(112, 109, 109, 0.712)">   
                                                 <h5>Fav Episodes</h5>
-                                                {favorite.data() ? favorite.data().favEpisodes.map((fav, index) => {
+                                                {userData ? userData.favEpisodes.map((fav, index) => {
                                                     
                                                     let favEpisodeTime = fav.timestamp.toDate() //NOTE observar como tratar timestamp (tengo que eliminar el .toLocaleString(), porque daba problemas con Timeago)
                                                     {/* {console.log('EPISODE TIME',favEpisodeTime)} */}
@@ -401,7 +386,7 @@ function UserProfile() {
                                          <div className='col'>
                                             <Box className={classes.favBox} border={2} boxShadow={2} borderRadius={60} borderColor="rgba(112, 109, 109, 0.712)">
                                                 <h5>Fav Podcast</h5>
-                                                {favorite.data() ? favorite.data().favPodcast.map((fav, index) => {
+                                                {userData ? userData.favPodcast.map((fav, index) => {
 
                                                     return (
                                                         <div className='col order-last'>
@@ -430,9 +415,9 @@ function UserProfile() {
                                 
                             </div>
                             
-                            )
-                        }           
-                    }) : <h2>....Loading...</h2>}
+                            
+                                 
+                    
                 </div>
         
             </Grid>

@@ -49,7 +49,7 @@ function GoogleChatApp() {
 }
 
 export function GoogleLogin() {
-    const {addDocFavorite} = useContext(AuthContext)
+    const {addUserData} = useContext(AuthContext)
     // const user = firebase.auth().currentUser; //I don't need the user here
     
 
@@ -65,7 +65,7 @@ export function GoogleLogin() {
             // The signed-in user info.
             var user = result.user;
             // console.log(`GOOGLECHATAPP-L56-user`, user) //REVIEW why? User coming from Firebase?
-            addDocFavorite(user)
+            addUserData(user)
             // ...
           }).catch((error) => {
             // Handle Errors here.
