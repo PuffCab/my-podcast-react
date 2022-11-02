@@ -4,7 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
-
+/myPocastReact_eliminada
+myPocastReact_eliminada
 # testing
 /coverage
 

@@ -43,7 +43,7 @@ export const UserProfileContextProvider = ({children}) => {
     //FIN comentado para cambiar el metodo por arrayUnion
 
     
-    const addFavorite = (userText) => {
+    const addUserText = (userText) => {
         // console.log(`user`, user.uid)
         // console.log(`userDescrip`, userDescription)
 
@@ -244,7 +244,7 @@ export const UserProfileContextProvider = ({children}) => {
 
 
     return (
-        <UserProfileContext.Provider value={{userData, addFavorite,addFavAudio,addFavPodcast, getUserData, deleteFavorite, deleteFavAudio, deleteFavPodcast, addProfilePic, userProfilePic}}>
+        <UserProfileContext.Provider value={{userData, addUserText,addFavAudio,addFavPodcast, getUserData, deleteFavorite, deleteFavAudio, deleteFavPodcast, addProfilePic, userProfilePic}}>
             {children}
         </UserProfileContext.Provider>
     )
