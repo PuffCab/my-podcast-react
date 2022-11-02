@@ -9,23 +9,26 @@ const List = () => {
 
   //INICIO commented for local Fetch
   var myHeaders = new Headers();
-  myHeaders.append("X-ListenAPI-Key", process.env.REACT_APP_LISTENNOTES_API_KEY);
+  myHeaders.append(
+    "X-ListenAPI-Key",
+    process.env.REACT_APP_LISTENNOTES_API_KEY
+  );
 
   var requestOptions = {
-    method: 'GET',
+    method: "GET",
     headers: myHeaders,
-    redirect: 'follow'
+    redirect: "follow",
   };
 
-     useEffect(() => {
+  useEffect(() => {
     const getData = async () => {
-
       const response = await fetch(
-        "https://listen-api.listennotes.com/api/v2/curated_podcasts/?page=*&", requestOptions
+        "https://listen-api.listennotes.com/api/v2/curated_podcasts/?page=*&",
+        requestOptions
       );
-      const obj = await response.json()
-      console.log(obj.curated_lists)
-      setData(obj.curated_lists)
+      const obj = await response.json();
+      // console.log(obj.curated_lists)
+      setData(obj.curated_lists);
     };
     getData();
   }, []);
@@ -45,9 +48,9 @@ const List = () => {
   //   console.log(data);
   // }, []);
   //SECTION END block code for Local fetch
-  console.log(`DATA`, data)
+  console.log(`DATA`, data);
   return (
-    <div style={{marginTop: 40}}>
+    <div style={{ marginTop: 40 }}>
       {data &&
         data.map((item, id) => (
           <Paper

@@ -149,7 +149,7 @@ function UserProfile() {
     user && getUserData(); // porque daba el userData state vacio porque se llamaba a la funcion "demasiado pronto". nos aseguramos de tener os data y en el parametro mandamos [user]
   }, [user]);
 
-  console.log(`user`, user);
+  //   console.log(`user`, user);
   //get/Create Favorites clicked in component (uso el texto de los mensajs por el momento)
   // const { messages } = useContext(ChatContext)
 
@@ -205,14 +205,14 @@ function UserProfile() {
       (snapshot) => {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
+        // console.log("Upload is " + progress + "% done");
         setImgUpload(progress);
       },
       (error) => {
         console.log(error);
       },
       () => {
-        console.log("sucess");
+        // console.log("sucess");
 
         setImgUpload(100);
         firebase
@@ -231,15 +231,15 @@ function UserProfile() {
 
   const updateUserWithPic = (file) => {
     const user = firebase.auth().currentUser;
-    console.log(`USER en update function`, user);
-    console.log(`uploadedPIC`, file);
+    // console.log(`USER en update function`, user);
+    // console.log(`uploadedPIC`, file);
     user
       .updateProfile({
         photoURL: file,
       })
       .then(() => {
         console.log("User updated with Picture");
-        console.log("USER after IMG upload", user.photoURL);
+        // console.log("USER after IMG upload", user.photoURL);
       })
       .catch((error) => {
         console.log("Fail to update user", error.message);
@@ -248,7 +248,7 @@ function UserProfile() {
 
   const handleImgUpload = (files) => {
     const file = files[0];
-    console.log(`file`, file);
+    // console.log(`file`, file);
     firebaseStorageUpload(file);
   };
 
@@ -275,7 +275,7 @@ function UserProfile() {
                 ? `${user?.displayName ?? user.email}'S profile`
                 : "Not logged in"}
             </h3>
-            {console.log("FAVorite", userData)}
+            {/* {console.log("FAVorite", userData)} */}
 
             <div className={classes.imgContainer}>
               {imgUpload > 0 && !userData?.photoURL && (
@@ -322,7 +322,7 @@ function UserProfile() {
             </div>
           </Box>
           <div>
-            {console.log("myFavorite", userData)}
+            {/* {console.log("myFavorite", userData)} */}
 
             {/* {console.log("this is favorites", favorites)} */}
 
@@ -356,7 +356,7 @@ function UserProfile() {
                       </Button>
                     </Box>
                     {/* <h6>{favorite.toData().timestamp.toDate().toLocaleString()}</h6> */}
-                    {console.log("userData l308", userData)}
+                    {/* {console.log("userData l308", userData)} */}
                     {userData ? (
                       userData.userDescription.map((fav, index) => {
                         return (
