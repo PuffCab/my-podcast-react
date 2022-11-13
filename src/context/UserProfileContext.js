@@ -205,6 +205,7 @@ export const UserProfileContextProvider = ({ children }) => {
   };
 
   const deleteFavPodcast = (podcast, timestamp) => {
+    // console.log("podcast, timestamp :>> ", podcast, timestamp);
     const userRef = db.collection("userProfile").doc(user.uid);
 
     userRef

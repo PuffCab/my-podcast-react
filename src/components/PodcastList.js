@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import { Paper, Button, List } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -17,9 +17,11 @@ import IconButton from "@material-ui/core/IconButton";
 // import Alert from '@material-ui/lab/Alert'; // REVIEW why not working?
 
 const PodcastList = ({ curListDetails }) => {
-  const { addFavPodcast } = useContext(UserProfileContext);
+  console.log("component run!!!");
+  const { addFavPodcast, userData, getUserData, deleteFavPodcast } =
+    useContext(UserProfileContext);
   const { user } = useContext(AuthContext);
-
+  console.log("userData", userData.favPodcast);
   const podcasts = curListDetails.podcasts;
   // console.log(`podcasts`, podcasts)
 
@@ -27,6 +29,32 @@ const PodcastList = ({ curListDetails }) => {
     addFavPodcast(podcastObj);
   };
 
+  const isFavPodcast = (podcastid) => {
+    // console.log("isFavPdcast run!!!");
+    let isFav;
+    userData?.favPodcast?.find((podcast) => {
+      if (podcast.podcast.id === podcastid) {
+        return (isFav = true);
+      } else {
+        return (isFav = false);
+      }
+    });
+    // console.log("isFav>>", isFav);
+    return isFav;
+  };
+  const deleteFav = (selectedPodcast) => {
+    console.log("podcastToDelete", selectedPodcast);
+    const podcastToDelete = userData.favPodcast.find((podcast) => {
+      return podcast.podcast.id === selectedPodcast.id;
+    });
+    console.log("podcastToDelete", podcastToDelete);
+    deleteFavPodcast(podcastToDelete.podcast, podcastToDelete.timestamp);
+  };
+
+  useEffect(() => {
+    console.log("useEffect run :>> ");
+    getUserData();
+  }, []);
   return (
     <div>
       {/* <Paper>
@@ -63,15 +91,26 @@ const PodcastList = ({ curListDetails }) => {
                     <IconButton
                       className="btnPodcastList"
                       onClick={
-                        user
+                        isFavPodcast(item.id)
+                          ? () => {
+                              deleteFav(item);
+                            }
+                          : user
                           ? () => {
                               handleAddFavPodcast(item);
                             }
                           : () =>
-                              alert("Life ain´t easy ... Please Login first ")
+                              alert("Life ain't easy ... Please Login first ")
                       }
                     >
-                      <FavoriteIcon />
+                      <FavoriteIcon
+                        style={{
+                          color: isFavPodcast(item.id)
+                            ? "red"
+                            : // : "rgb 66, 66, 66",
+                              "grey",
+                        }}
+                      />
                     </IconButton>
                   </div>
                 </div>
